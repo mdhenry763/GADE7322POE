@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PerlinNoise;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using Random = System.Random;
 
@@ -27,6 +30,9 @@ namespace ProGen
 
         private int[] _triangles;
         private Vector3[] _vertices;
+
+        public UnityEvent<PathData> onStartPositionsSet;
+        public UnityEvent onMeshCreated;
 
         private void Start()
         {
@@ -101,6 +107,16 @@ namespace ProGen
                 Instantiate(enemyStartPiece, spawnPos, Quaternion.identity);
                 _startPositions.Remove(spawnPos);
             }
+
+            //Set path data for generating a path
+            var pathData = new PathData
+            {
+                StartPositions = _startPositions,
+                TowerPosition = _endPosition,
+                Points = _vertices.ToList()
+            };
+            //Fire event for path generation
+            onStartPositionsSet?.Invoke(pathData);
         }
 
         private void UpdateMesh()
@@ -111,6 +127,7 @@ namespace ProGen
             _generatedMesh.triangles = _triangles;
             
             _generatedMesh.RecalculateNormals();
+            onMeshCreated?.Invoke();
         }
 
         private void OnDrawGizmos()
@@ -125,4 +142,11 @@ namespace ProGen
             }
         }
     }
+}
+
+public struct PathData
+{
+    public List<Vector3> StartPositions;
+    public Vector3 TowerPosition;
+    public List<Vector3> Points;
 }
