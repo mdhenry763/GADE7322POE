@@ -15,10 +15,12 @@ namespace ProGen
         [Header("Area Size")] 
         public int areaX;
         public int areaZ;
-        public int heightMultiplier = 5;
+        public float heightMultiplier = 1;
 
         [Header("References")] 
         public PerlinNoiseTexture noise;
+
+        public GridManager grid;
 
         public GameObject tower;
         public GameObject enemyStartPiece;
@@ -38,6 +40,8 @@ namespace ProGen
         {
             _generatedMesh = new Mesh();
             _generatedMesh.name = "WorldMesh";
+
+            heightMultiplier = UnityEngine.Random.Range(1.0f, 2.0f);
             
             GetComponent<MeshFilter>().mesh = _generatedMesh;
             GenerateMesh();
@@ -60,6 +64,7 @@ namespace ProGen
                 for (int x = 0; x <= areaX; x++)
                 {
                     _vertices[i] = new Vector3(x, noise.GenerateHeight(z,x) * heightMultiplier , z);
+                    grid.AddNodeToGrid(new Vector2Int(x,z), _vertices[i]);
                     
                     if(z == 1) _startPositions.Add(_vertices[i]);
                     if (z == areaZ - 1 && x == randEndIndex) _endPosition = _vertices[i];
@@ -92,7 +97,8 @@ namespace ProGen
                 verts++;
             }
             
-            SpawnStartObjects();
+            //SpawnStartObjects();
+            //grid.CreateGrid(new Vector2Int(areaX, areaZ));
         }
 
         private void SpawnStartObjects()
@@ -116,7 +122,7 @@ namespace ProGen
                 Points = _vertices.ToList()
             };
             //Fire event for path generation
-            onStartPositionsSet?.Invoke(pathData);
+            //onStartPositionsSet?.Invoke(pathData);
         }
 
         private void UpdateMesh()
@@ -130,17 +136,17 @@ namespace ProGen
             onMeshCreated?.Invoke();
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            
-            if(_vertices.Length == 0) return;
-            
-            foreach (var vertex in _vertices)
-            {
-                Gizmos.DrawSphere(vertex, 0.1f);
-            }
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     Gizmos.color = Color.red;
+        //     
+        //     if(_vertices.Length == 0) return;
+        //     
+        //     foreach (var vertex in _vertices)
+        //     {
+        //         Gizmos.DrawSphere(vertex, 0.1f);
+        //     }
+        // }
     }
 }
 

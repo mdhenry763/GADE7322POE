@@ -296,6 +296,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &274327766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274327768}
+  - component: {fileID: 274327767}
+  m_Layer: 0
+  m_Name: GridGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &274327767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274327766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d534f1db03d242dfaf307023f431878c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &274327768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274327766}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.8130727, y: 4.4885645, z: 9.276651}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,6 +595,57 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &717297334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717297336}
+  - component: {fileID: 717297335}
+  m_Layer: 0
+  m_Name: PathFinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &717297335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717297334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d156cd90f2c8bc74fbb13839c47decad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSearchNode:
+    coordinates: {x: 5, y: 6}
+    isWalkable: 0
+    position: {x: 2, y: 2, z: 2}
+    isExplored: 0
+    isPath: 1
+  gridManager: {fileID: 274327767}
+--- !u!4 &717297336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717297334}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1908067, y: 7.0508814, z: -7.7344685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,8 +829,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   areaX: 25
   areaZ: 25
-  heightMultiplier: 3
+  heightMultiplier: 1
   noise: {fileID: 1511161951}
+  grid: {fileID: 274327767}
   tower: {fileID: 3030493520677072880, guid: 3ffb5427d12cf514799ce49d8358ab2a, type: 3}
   enemyStartPiece: {fileID: 3823907777997000896, guid: de14d04ad3367cf4ea0c6e2d749cba50,
     type: 3}
@@ -757,9 +853,9 @@ MonoBehaviour:
   onMeshCreated:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1980725632}
-        m_TargetAssemblyTypeName: PathGeneration, Assembly-CSharp
-        m_MethodName: BuildPath
+      - m_Target: {fileID: 717297335}
+        m_TargetAssemblyTypeName: PathFinder, Assembly-CSharp
+        m_MethodName: PathFind
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -784,7 +880,7 @@ MonoBehaviour:
   depth: 20
   width: 256
   height: 256
-  scale: 50
+  scale: 1000
   offsetX: 100
   offsetY: 100
 --- !u!114 &1511161952
@@ -832,7 +928,7 @@ GameObject:
   - component: {fileID: 1980725630}
   - component: {fileID: 1980725634}
   m_Layer: 0
-  m_Name: PathCreattor
+  m_Name: PathCreator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -987,3 +1083,5 @@ SceneRoots:
   - {fileID: 1511161949}
   - {fileID: 273017717}
   - {fileID: 1980725633}
+  - {fileID: 274327768}
+  - {fileID: 717297336}
