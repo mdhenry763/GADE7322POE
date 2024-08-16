@@ -8,26 +8,33 @@ using UnityEngine.Splines;
 
 public class PathGeneration : MonoBehaviour
 {
-    public NavMeshSurface surface;
-
+    
     private Vector3 _endPosition;
     private Spline spline;
     private BezierKnot enemyKnot;
     private BezierKnot towerKnot;
-    private NavMeshAgent agent;
 
     private void Start()
     {
         spline = GetComponent<SplineContainer>().Spline;
-        agent = GetComponent<NavMeshAgent>();
     }
 
-    public void GeneratePaths(PathData data)
+    private void Awake()
+    {
+        spline = GetComponent<SplineContainer>().Spline;
+    }
+
+    public void CreatePath(List<Vector3> positions)
+    {
+        SetupSpline(positions);
+    }
+    
+    public void GeneratePaths()
     {
         spline.Add(enemyKnot);
         spline.Insert(1, towerKnot);
-        _endPosition = data.TowerPosition;
-        GetObjectPositions(data.StartPositions[0]);
+        //_endPosition = data.TowerPosition;
+        //GetObjectPositions(data.StartPositions[0]);
         
     }
 
@@ -47,28 +54,7 @@ public class PathGeneration : MonoBehaviour
 
         GetComponent<SplineInstantiate>().enabled = true;
     }
-
-    public void BuildPath()
-    {
-        surface.BuildNavMesh();
-        agent.enabled = true;
-        //agent.SetDestination(_endPosition);
-        NavMeshPath path = new NavMeshPath();
-        agent.CalculatePath(_endPosition, path);
-
-        List<Vector3> pathPositions = new List<Vector3>();
-
-        if (path.status == NavMeshPathStatus.PathComplete)
-        {
-            pathPositions.AddRange(path.corners);
-        }
-
-        foreach (var piece in pathPositions)
-        {
-            Debug.Log(piece);
-        }
-        SetupSpline(pathPositions);
-    }
+    
     
     private void SetupSpline(List<Vector3> pathPositions)
     {
@@ -89,7 +75,7 @@ public class PathGeneration : MonoBehaviour
             spline.Add(knot);
         }
 
-        // Optional: Set tangents mode for a smoother path
+        // Set tangents mode for a smoother path
         for (int i = 0; i < spline.Count; i++)
         {
             spline.SetTangentMode(i, TangentMode.Linear);
@@ -97,4 +83,11 @@ public class PathGeneration : MonoBehaviour
 
         GetComponent<SplineInstantiate>().enabled = true;
     }
+}
+
+[Serializable]
+public struct PathCreator
+{
+    public PathGeneration PathGenerator;
+    public int Index;
 }

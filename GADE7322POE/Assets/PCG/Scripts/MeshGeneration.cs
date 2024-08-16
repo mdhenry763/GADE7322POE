@@ -19,21 +19,20 @@ namespace ProGen
 
         [Header("References")] 
         public PerlinNoiseTexture noise;
-
+        public PathCreator[] pathGenerator;
         public GridManager grid;
-
         public GameObject tower;
         public GameObject enemyStartPiece;
 
         private Mesh _generatedMesh;
 
         private List<Vector3> _startPositions = new();
+        private List<Vector3> _spawnPositions = new List<Vector3>();
         private Vector3 _endPosition;
 
         private int[] _triangles;
         private Vector3[] _vertices;
-
-        public UnityEvent<PathData> onStartPositionsSet;
+        
         public UnityEvent onMeshCreated;
 
         private void Start()
@@ -57,6 +56,7 @@ namespace ProGen
             _vertices = new Vector3[(areaX + 1) * (areaZ + 1)];
 
             var randEndIndex = UnityEngine.Random.Range(0, areaX);
+            var randXIndex = UnityEngine.Random.Range(0, areaX);
             
             //Populate vertices
             for (int i = 0, z = 0; z <= areaZ; z++)
@@ -97,7 +97,7 @@ namespace ProGen
                 verts++;
             }
             
-            //SpawnStartObjects();
+            SpawnStartObjects();
             //grid.CreateGrid(new Vector2Int(areaX, areaZ));
         }
 
@@ -110,17 +110,12 @@ namespace ProGen
             for (int i = 0; i < 3; i++)
             {
                 var spawnPos = _startPositions[UnityEngine.Random.Range(0, _startPositions.Count)];
+                _spawnPositions.Add(spawnPos);
                 Instantiate(enemyStartPiece, spawnPos, Quaternion.identity);
                 _startPositions.Remove(spawnPos);
             }
 
             //Set path data for generating a path
-            var pathData = new PathData
-            {
-                StartPositions = _startPositions,
-                TowerPosition = _endPosition,
-                Points = _vertices.ToList()
-            };
             //Fire event for path generation
             //onStartPositionsSet?.Invoke(pathData);
         }
@@ -134,6 +129,41 @@ namespace ProGen
             
             _generatedMesh.RecalculateNormals();
             onMeshCreated?.Invoke();
+            
+            GeneratePaths();
+        }
+
+        void GeneratePaths()
+        {
+            //TODO:
+            // Loop through each start position and form a path then use a spline to generate that path
+            
+            if(_spawnPositions.Count == 0) return;
+
+            int index = 0;
+            //Start Node
+            foreach (var position in _spawnPositions)
+            {
+                var startPosition = position;
+                Debug.Log($"Start Pos: {startPosition}");
+                Vector2Int startNodeCoords = new Vector2Int((int)startPosition.x, (int)startPosition.z);
+                Node startNode = new Node(startNodeCoords, true, startPosition);
+            
+                //EndNode
+                Vector2Int endNodeCoords = new Vector2Int((int)_endPosition.x, (int)_endPosition.z);
+                Node endNode = new Node(endNodeCoords, true, _endPosition);
+                Debug.Log($"End Pos: {_endPosition}");
+
+                var pathFinder = new PathFinder(grid, startNode, endNode);
+                pathFinder.BreadthFirstSearch();
+                var path = pathFinder.BuildPath();
+            
+                List<Vector3> pathPositions = path.Select(node => node.position).ToList();
+                pathGenerator.FirstOrDefault((path) => path.Index == index).PathGenerator.CreatePath(pathPositions);
+                index++;
+            }
+            
+            //pathGenerator.CreatePath(pathPositions);
         }
 
         // private void OnDrawGizmos()
@@ -150,9 +180,3 @@ namespace ProGen
     }
 }
 
-public struct PathData
-{
-    public List<Vector3> StartPositions;
-    public Vector3 TowerPosition;
-    public List<Vector3> Points;
-}

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class Node
@@ -11,7 +12,7 @@ public class Node
     public Vector3 position;
     public bool isExplored;
     public bool isPath;
-    public Node connctedTo;
+    public Node connectedTo;
 
     public Node(Vector2Int coordinates, bool isWalkable, Vector3 position)
     {
