@@ -21,6 +21,7 @@ namespace ProGen
         public PerlinNoiseTexture noise;
         public PathCreator[] pathGenerator;
         public GridManager grid;
+        public EnemyAI enemyAI;
         public GameObject tower;
         public GameObject enemyStartPiece;
 
@@ -167,7 +168,7 @@ namespace ProGen
                 
                 index++;
             }
-            
+            enemyAI.InitializeEnemy(paths);
             //pathGenerator.CreatePath(pathPositions);
         }
 

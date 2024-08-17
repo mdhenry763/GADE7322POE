@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="flex-grow: 1; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); justify-content: space-between;">
+        <ui:VisualElement name="TopContainer" style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 30%; flex-direction: row; align-items: flex-start; justify-content: space-between; align-self: auto;">
+            <ui:VisualElement name="PauseContainer" style="flex-grow: 0; flex-shrink: 0; width: 10%; height: 30%;">
+                <ui:VisualElement style="flex-grow: 1; background-color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="TowerInfoContainer" style="flex-grow: 0; flex-shrink: 0; width: 70%; height: 100%;">
+                <ui:VisualElement name="Background" style="flex-grow: 0; flex-shrink: 0; width: 50%; height: 60%; background-color: rgb(141, 116, 73); border-left-width: 10px; border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-bottom-left-radius: 36px; border-bottom-right-radius: 36px; flex-direction: row; justify-content: space-between; border-left-color: rgb(115, 92, 53); border-right-color: rgb(115, 92, 53); border-top-color: rgb(115, 92, 53); border-bottom-color: rgb(115, 92, 53);">
+                    <ui:Label tabindex="-1" text="Tower Health" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TowerLabel" style="align-self: center; justify-content: center; align-items: center; width: 50%; height: 60%; -unity-text-align: middle-center; font-size: 39%; -unity-font-style: bold;" />
+                    <ui:VisualElement name="Health" style="flex-grow: 0; width: 46%; height: 40%; align-self: center; flex-shrink: 0; background-color: rgb(255, 255, 255); margin-right: 20px;">
+                        <ui:VisualElement name="HealthBar" style="flex-grow: 1; background-color: rgb(55, 255, 0); width: 74%; height: 40%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label tabindex="-1" text="Wave" parse-escape-sequences="true" display-tooltip-when-elided="true" name="WaveLabel" style="width: 50%; height: 40%; -unity-font-style: bold; -unity-text-align: upper-center; font-size: 36%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="BottomContainer" style="flex-grow: 0; width: 100%; height: 40%; flex-direction: row-reverse;">
+            <ui:VisualElement name="CardContainer" style="flex-grow: 0; flex-direction: column-reverse; flex-shrink: 0; width: 60%; height: 100%;">
+                <ui:VisualElement name="Background" style="flex-grow: 0; flex-shrink: 0; width: 84%; height: 47%; align-self: flex-end; background-color: rgb(141, 116, 73); border-top-left-radius: 36px; flex-direction: row; border-left-color: rgb(115, 92, 53); border-right-color: rgb(115, 92, 53); border-top-color: rgb(115, 92, 53); border-bottom-color: rgb(115, 92, 53); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; justify-content: space-between;">
+                    <ui:VisualElement name="Currency" style="flex-grow: 0; width: 20%; flex-direction: row;">
+                        <ui:VisualElement name="CoinImg" style="flex-grow: 1;" />
+                        <ui:Label tabindex="-1" text="100" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CurrencyLbl" style="width: 60%; height: 100%; -unity-text-align: middle-center; font-size: 37%;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Cards" style="flex-grow: 0; height: 100%; width: 65%; flex-shrink: 0; flex-direction: column-reverse;">
+                        <ui:VisualElement name="Card" style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 200%; flex-direction: row; background-color: rgba(255, 255, 255, 0); border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; margin-bottom: 53px; justify-content: space-between;">
+                            <ui:VisualElement style="flex-grow: 0; background-color: rgb(255, 255, 255); flex-shrink: 0; width: 45%; height: 100%; border-top-left-radius: 36px; border-top-right-radius: 36px; border-bottom-right-radius: 36px; border-bottom-left-radius: 36px;" />
+                            <ui:VisualElement style="flex-grow: 0; background-color: rgb(255, 255, 255); flex-shrink: 0; width: 45%; height: 100%; border-top-left-radius: 36px; border-top-right-radius: 36px; border-bottom-right-radius: 36px; border-bottom-left-radius: 36px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
