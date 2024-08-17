@@ -135,31 +135,36 @@ namespace ProGen
 
         void GeneratePaths()
         {
-            //TODO:
-            // Loop through each start position and form a path then use a spline to generate that path
             
             if(_spawnPositions.Count == 0) return;
+
+            //Store the paths
+            Dictionary<int, List<Vector3>> paths = new();
 
             int index = 0;
             //Start Node
             foreach (var position in _spawnPositions)
             {
+                //Get the start node
                 var startPosition = position;
-                Debug.Log($"Start Pos: {startPosition}");
                 Vector2Int startNodeCoords = new Vector2Int((int)startPosition.x, (int)startPosition.z);
                 Node startNode = new Node(startNodeCoords, true, startPosition);
             
                 //EndNode
                 Vector2Int endNodeCoords = new Vector2Int((int)_endPosition.x, (int)_endPosition.z);
                 Node endNode = new Node(endNodeCoords, true, _endPosition);
-                Debug.Log($"End Pos: {_endPosition}");
 
+                //Use the path finding class to generate a path using breadth first search
                 var pathFinder = new PathFinder(grid, startNode, endNode);
                 pathFinder.BreadthFirstSearch();
                 var path = pathFinder.BuildPath();
             
+                //Get all the points in the path
                 List<Vector3> pathPositions = path.Select(node => node.position).ToList();
+                paths.Add(index, pathPositions);
+                //use the path generators to generate 3 different paths
                 pathGenerator.FirstOrDefault((path) => path.Index == index).PathGenerator.CreatePath(pathPositions);
+                
                 index++;
             }
             

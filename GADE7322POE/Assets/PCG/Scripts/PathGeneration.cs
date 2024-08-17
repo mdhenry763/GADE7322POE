@@ -13,6 +13,7 @@ public class PathGeneration : MonoBehaviour
     private Spline spline;
     private BezierKnot enemyKnot;
     private BezierKnot towerKnot;
+    
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class PathGeneration : MonoBehaviour
 
     public void CreatePath(List<Vector3> positions)
     {
+        
         SetupSpline(positions);
     }
     
