@@ -27,7 +27,6 @@ public class PathGeneration : MonoBehaviour
 
     public void CreatePath(List<Vector3> positions)
     {
-        
         SetupSpline(positions);
     }
     

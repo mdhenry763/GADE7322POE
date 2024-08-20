@@ -988,6 +988,7 @@ GameObject:
   - component: {fileID: 1511161947}
   - component: {fileID: 1511161950}
   - component: {fileID: 1511161951}
+  - component: {fileID: 1511161952}
   m_Layer: 0
   m_Name: MeshGen
   m_TagString: Untagged
@@ -1075,6 +1076,7 @@ MonoBehaviour:
   areaX: 25
   areaZ: 25
   heightMultiplier: 1
+  pathHeight: 0.5
   noise: {fileID: 1511161951}
   pathGenerator:
   - PathGenerator: {fileID: 1980725632}
@@ -1109,6 +1111,28 @@ MonoBehaviour:
   scale: 1000
   offsetX: 100
   offsetY: 100
+--- !u!64 &1511161952
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511161946}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1656478350
 GameObject:
   m_ObjectHideFlags: 0

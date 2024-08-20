@@ -16,6 +16,7 @@ namespace ProGen
         public int areaX;
         public int areaZ;
         public float heightMultiplier = 1;
+        public float pathHeight = 0.5f;
 
         [Header("References")] 
         public PerlinNoiseTexture noise;
@@ -41,11 +42,11 @@ namespace ProGen
             _generatedMesh = new Mesh();
             _generatedMesh.name = "WorldMesh";
 
-            heightMultiplier = UnityEngine.Random.Range(1.0f, 2.0f);
+            heightMultiplier = UnityEngine.Random.Range(1.0f, 1.5f);
             
             GetComponent<MeshFilter>().mesh = _generatedMesh;
             GenerateMesh();
-            UpdateMesh();
+            //UpdateMesh();
         }
 
 
@@ -65,7 +66,8 @@ namespace ProGen
                 for (int x = 0; x <= areaX; x++)
                 {
                     _vertices[i] = new Vector3(x, noise.GenerateHeight(z,x) * heightMultiplier , z);
-                    grid.AddNodeToGrid(new Vector2Int(x,z), _vertices[i]);
+                    var position = new Vector3(_vertices[i].x, pathHeight, _vertices[i].z);
+                    grid.AddNodeToGrid(new Vector2Int(x,z), position);
                     
                     if(z == 1) _startPositions.Add(_vertices[i]);
                     if (z == areaZ - 1 && x == randEndIndex) _endPosition = _vertices[i];
@@ -74,6 +76,15 @@ namespace ProGen
                 }
             }
 
+            GenerateQuad();
+
+            SpawnStartObjects();
+            GeneratePaths();
+            //grid.CreateGrid(new Vector2Int(areaX, areaZ));
+        }
+
+        private void GenerateQuad()
+        {
             int tris = 0;
             int verts = 0;
             
@@ -97,20 +108,19 @@ namespace ProGen
 
                 verts++;
             }
-            
-            SpawnStartObjects();
-            //grid.CreateGrid(new Vector2Int(areaX, areaZ));
         }
 
         private void SpawnStartObjects()
         {
             //Spawn Tower
+            _endPosition.y = 1;
             Instantiate(tower, _endPosition, Quaternion.identity);
             
             //Spawn StartPos
             for (int i = 0; i < 3; i++)
             {
                 var spawnPos = _startPositions[UnityEngine.Random.Range(0, _startPositions.Count)];
+                spawnPos.y = pathHeight;
                 _spawnPositions.Add(spawnPos);
                 Instantiate(enemyStartPiece, spawnPos, Quaternion.identity);
                 _startPositions.Remove(spawnPos);
@@ -130,8 +140,6 @@ namespace ProGen
             
             _generatedMesh.RecalculateNormals();
             onMeshCreated?.Invoke();
-            
-            GeneratePaths();
         }
 
         void GeneratePaths()
@@ -141,6 +149,7 @@ namespace ProGen
 
             //Store the paths
             Dictionary<int, List<Vector3>> paths = new();
+            List<Vector3> pathTest = new();
 
             int index = 0;
             //Start Node
@@ -168,8 +177,32 @@ namespace ProGen
                 
                 index++;
             }
+            
+            UpdateVertices(paths);
             enemyAI.InitializeEnemy(paths);
             //pathGenerator.CreatePath(pathPositions);
+        }
+
+        private void UpdateVertices(Dictionary<int, List<Vector3>> paths)
+        {
+            foreach (KeyValuePair<int, List<Vector3>> path in paths)
+            {
+                int key = path.Key;
+                List<Vector3> points = path.Value;
+
+                for (int i = 0; i < points.Count;i++)
+                {
+                    for (int j = 0; j < _vertices.Length; j++)
+                    {
+                        if (points[i].x == _vertices[j].x && points[i].z == _vertices[j].z)
+                        {
+                            _vertices[j].y = pathHeight;
+                        }
+                    }
+                }
+            }
+            GenerateQuad();
+            UpdateMesh();
         }
 
         // private void OnDrawGizmos()
