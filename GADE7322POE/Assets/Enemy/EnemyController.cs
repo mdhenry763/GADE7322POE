@@ -11,8 +11,6 @@ public class EnemyController : MonoBehaviour
         if (other.CompareTag("Path"))
         {
             transform.position += other.bounds.extents * 2;
-            Debug.Log(other.bounds);
-            Debug.Log(other.contactOffset);
         }
         
     }

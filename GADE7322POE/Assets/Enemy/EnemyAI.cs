@@ -30,36 +30,11 @@ public class EnemyAI : MonoBehaviour
 
           var enemy = Instantiate(goblinPrefab, this.transform);
           StartCoroutine(FollowPath(enemy));
-
-          //spline = splineContainer.Spline;
+          
           var splineIn = splineContainer.GetComponent<SplineInstantiate>();
-          //BakeSplinePath();
           
      }
      
-     /*private void BakeSplinePath()
-     {
-          var spline = splineContainer.Spline;
-          var splineInstantiate = splineContainer.GetComponent<SplineInstantiate>();
-
-          // Specify the interval for instantiation (e.g., every 0.1 units of spline length)
-          float interval = 0.1f;
-
-          // Loop through the spline and instantiate items at regular intervals
-          for (float t = 0; t <= spline.GetLength(); t += interval)
-          {
-               Vector3 position = spline.EvaluatePosition(t / spline.GetLength());
-
-               foreach (var instantiableItem in splineInstantiate.itemsToInstantiate)
-               {
-                    var obj = Instantiate(instantiableItem.Prefab, position, Quaternion.identity);
-               }
-          }
-
-          // Optional: Adjust the NavMeshSurface bounds if necessary
-          surface.transform.position = splineContainer.transform.position;
-          surface.transform.rotation = splineContainer.transform.rotation;
-     }*/
 
      IEnumerator FollowPath(GameObject enemy)
      {
@@ -68,8 +43,8 @@ public class EnemyAI : MonoBehaviour
 
           for (int i = 1; i < path.Count; i++)
           {
-               var currentPosition = path[i - 1];
-               var nextPosition = path[i];
+               var currentPosition = path[i - 1] + offset;
+               var nextPosition = path[i] + offset;
 
                float elapsedTime = 0f;
                float journeyLength = Vector3.Distance(currentPosition, nextPosition);

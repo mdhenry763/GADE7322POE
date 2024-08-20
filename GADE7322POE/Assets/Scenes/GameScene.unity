@@ -660,8 +660,8 @@ MonoBehaviour:
   m_Forward: 2
   m_PositionOffset:
     setup: 1
-    min: {x: -0.25, y: -0.08, z: 0.25}
-    max: {x: 0, y: 0, z: 0.25}
+    min: {x: -0.25, y: 0, z: 0.25}
+    max: {x: 0, y: 0.1, z: 0.25}
     randomX: 0
     randomY: 0
     randomZ: 0
@@ -796,8 +796,8 @@ MonoBehaviour:
   m_Forward: 2
   m_PositionOffset:
     setup: 1
-    min: {x: -0.25, y: -0.08, z: 0.25}
-    max: {x: 0, y: 0, z: 0.25}
+    min: {x: -0.25, y: 0, z: 0.25}
+    max: {x: 0, y: 0.1, z: 0.25}
     randomX: 0
     randomY: 0
     randomZ: 0
@@ -975,6 +975,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1503172046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1503172048}
+  - component: {fileID: 1503172049}
+  m_Layer: 0
+  m_Name: DefenderHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1503172048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503172046}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.1071115, y: 1.2025888, z: 22.5154}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1503172049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503172046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d0172f0b14f33240ab9ec304701186d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defender: {fileID: 4200502001127775512, guid: fc59e04704a8dff4d857340ff05366fa,
+    type: 3}
 --- !u!1 &1511161946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,6 +1133,7 @@ MonoBehaviour:
     Index: 2
   grid: {fileID: 274327767}
   enemyAI: {fileID: 1656478351}
+  meshCollider: {fileID: 1511161952}
   tower: {fileID: 3030493520677072880, guid: 3ffb5427d12cf514799ce49d8358ab2a, type: 3}
   enemyStartPiece: {fileID: 3823907777997000896, guid: de14d04ad3367cf4ea0c6e2d749cba50,
     type: 3}
@@ -1164,8 +1211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goblinPrefab: {fileID: 1258991314359982, guid: 3749b9edee740c44ea7455a4fa1b7382,
     type: 3}
-  speed: 1
-  offset: {x: 0, y: 0.5, z: 0}
+  speed: 0.4
+  offset: {x: 0, y: 0.1, z: 0}
   splineContainer: {fileID: 1980725631}
   surface: {fileID: 489169336}
 --- !u!4 &1656478352
@@ -1276,8 +1323,8 @@ MonoBehaviour:
   m_Forward: 2
   m_PositionOffset:
     setup: 1
-    min: {x: -0.25, y: -0.08, z: 0.25}
-    max: {x: 0, y: 0, z: 0.25}
+    min: {x: -0.25, y: 0, z: 0.25}
+    max: {x: 0, y: 0.1, z: 0.25}
     randomX: 0
     randomY: 0
     randomZ: 0
@@ -1410,3 +1457,4 @@ SceneRoots:
   - {fileID: 1656478352}
   - {fileID: 2006565105}
   - {fileID: 1486891856}
+  - {fileID: 1503172048}

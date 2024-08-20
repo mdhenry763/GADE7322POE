@@ -23,6 +23,9 @@ namespace ProGen
         public PathCreator[] pathGenerator;
         public GridManager grid;
         public EnemyAI enemyAI;
+        public MeshCollider meshCollider;
+        
+        [Header("Path Pieces")]
         public GameObject tower;
         public GameObject enemyStartPiece;
 
@@ -113,7 +116,7 @@ namespace ProGen
         private void SpawnStartObjects()
         {
             //Spawn Tower
-            _endPosition.y = 1;
+            _endPosition.y = pathHeight;
             Instantiate(tower, _endPosition, Quaternion.identity);
             
             //Spawn StartPos
@@ -139,6 +142,7 @@ namespace ProGen
             _generatedMesh.triangles = _triangles;
             
             _generatedMesh.RecalculateNormals();
+            meshCollider.sharedMesh = _generatedMesh;
             onMeshCreated?.Invoke();
         }
 
