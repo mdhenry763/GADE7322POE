@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class DefenderHandler : MonoBehaviour
@@ -11,13 +12,14 @@ public class DefenderHandler : MonoBehaviour
     private Camera _mainCam;
     private Controls _controls;
 
+    private bool canPlace = false;
+
+    public UnityEvent onTowerPlaced;
+
     private void Awake()
     {
-        if (_controls == null)
-        {
-            _controls = new Controls();
-        }
-        
+        _controls ??= new Controls();
+
         _mainCam = Camera.main;
     }
 
@@ -28,19 +30,26 @@ public class DefenderHandler : MonoBehaviour
         _controls.Player.Fire.performed += MouseClick;
     }
 
+    public void CanPlaceDefender()
+    {
+        canPlace = true;
+    }
+
     private void MouseClick(InputAction.CallbackContext obj)
     {
-        RaycastHit hit;
-
+        if(!canPlace) return;
         Ray mousePos = _mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(mousePos, out hit, 100f))
+        if (Physics.Raycast(mousePos, out var hit, 100f))
         {
             Debug.Log(hit.transform.tag + " || " + hit.transform.position);
-            if (!hit.transform.CompareTag("Path") && hit.point.y < 2)
+            if (!hit.transform.CompareTag("Path") && hit.point.y < 2 && !hit.transform.CompareTag("Defender"))
             {
                 //Do something
+                
                 SpawnDefender(hit.point);
+                canPlace = false;
+                onTowerPlaced?.Invoke();
             }
         }
     }

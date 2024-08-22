@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7343529253258339183}
   m_Layer: 0
   m_Name: Zone1
-  m_TagString: Untagged
+  m_TagString: Defender
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,6 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cannon: {fileID: 3242376277726079849}
+  shootPos: {fileID: 8209198684737736892}
+  cannonBall: {fileID: 1240887441953726, guid: 8a976dcd328a4664c85144f33b9c46b0, type: 3}
+  shootTimer: 5
 --- !u!1 &2303422026163076775
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7338939002329855824}
+  - component: {fileID: 2530126509607002712}
   m_Layer: 0
   m_Name: D_Cannon
   m_TagString: Defender
@@ -445,6 +449,27 @@ Transform:
   - {fileID: 7246301297945619975}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2530126509607002712
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4200502001127775512}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2.1555371, z: 1}
+  m_Center: {x: 0, y: 0.97366595, z: 0}
 --- !u!1 &5006864147338727616
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7246301297945619975
 Transform:
   m_ObjectHideFlags: 0
