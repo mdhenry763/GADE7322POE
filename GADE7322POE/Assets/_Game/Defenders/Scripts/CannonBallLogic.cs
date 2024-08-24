@@ -22,8 +22,9 @@ public class CannonBallLogic : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Defender")) return;
+        Debug.Log(other.tag);
         
-        if(TryGetComponent<IDamageable>(out IDamageable damageable))
+        if(other.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
             damageable.Damage(DamageAmount);
             Destroy(gameObject);

@@ -151,8 +151,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cannon: {fileID: 3242376277726079849}
   shootPos: {fileID: 8209198684737736892}
-  cannonBall: {fileID: 1240887441953726, guid: 8a976dcd328a4664c85144f33b9c46b0, type: 3}
-  shootTimer: 5
+  cannonBall: {fileID: 1940186658668467378, guid: a46c9109ea22a214d812261f04397298,
+    type: 3}
+  shootTimer: 3
 --- !u!1 &2303422026163076775
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,8 +241,9 @@ GameObject:
   - component: {fileID: 1756784226389731705}
   - component: {fileID: 8250849610637802605}
   - component: {fileID: 1945566523401853833}
+  - component: {fileID: 3704059499084172046}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: HealthUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,6 +333,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3704059499084172046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2472757230570044117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d15d5ca13264c439d62773596da497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 3434494268073452929}
+  healthBar: {fileID: 756965312201903985}
 --- !u!1 &3354845988690624866
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7338939002329855824}
   - component: {fileID: 2530126509607002712}
+  - component: {fileID: 3434494268073452929}
   m_Layer: 0
   m_Name: D_Cannon
   m_TagString: Defender
@@ -470,6 +487,34 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2.1555371, z: 1}
   m_Center: {x: 0, y: 0.97366595, z: 0}
+--- !u!114 &3434494268073452929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4200502001127775512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef3c84980855374089a78a5f581a6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3704059499084172046}
+        m_TargetAssemblyTypeName: HealthUI, Assembly-CSharp
+        m_MethodName: SetHealthBar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5006864147338727616
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,7 +640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7246301297945619975
 Transform:
   m_ObjectHideFlags: 0

@@ -67,7 +67,7 @@ public class DDefence : MonoBehaviour, IDamageable
             var spawnedBall = Instantiate(cannonBall, shootPos.position, Quaternion.identity);
             if (spawnedBall.TryGetComponent<CannonBallLogic>(out var cannonBallLogic))
             {
-                cannonBallLogic.InitMotion(direction);
+                cannonBallLogic.InitMotion(enemies[0].transform.position - cannon.position);
             }
             _canShoot = false;
         }

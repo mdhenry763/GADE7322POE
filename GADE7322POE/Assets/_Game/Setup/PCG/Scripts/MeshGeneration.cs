@@ -22,7 +22,7 @@ namespace ProGen
         public PerlinNoiseTexture noise;
         public PathCreator[] pathGenerator;
         public GridManager grid;
-        public EnemyAI enemyAI;
+        [FormerlySerializedAs("enemyAI")] public EnemySpawner enemySpawner;
         public MeshCollider meshCollider;
         
         [Header("Path Pieces")]
@@ -183,7 +183,7 @@ namespace ProGen
             }
             
             UpdateVertices(paths);
-            enemyAI.InitializeEnemy(paths);
+            enemySpawner.InitializeEnemy(paths);
             //pathGenerator.CreatePath(pathPositions);
         }
 

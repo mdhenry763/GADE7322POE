@@ -476,7 +476,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_UseGeometry: 0
-  m_DefaultArea: 1
+  m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   - PathGenerator: {fileID: 1198463444}
     Index: 2
   grid: {fileID: 274327767}
-  enemyAI: {fileID: 1656478351}
+  enemySpawner: {fileID: 1656478351}
   meshCollider: {fileID: 1511161952}
   tower: {fileID: 3030493520677072880, guid: 3ffb5427d12cf514799ce49d8358ab2a, type: 3}
   enemyStartPiece: {fileID: 3823907777997000896, guid: de14d04ad3367cf4ea0c6e2d749cba50,
@@ -1245,9 +1245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88016c65f92aee740acba9faeb9d3710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goblinPrefab: {fileID: 1258991314359982, guid: 3749b9edee740c44ea7455a4fa1b7382,
+  goblinPrefab: {fileID: 6736667856175754488, guid: ffb97ed2d26e3624889dc09bb70890dd,
     type: 3}
-  speed: 0.4
+  goblinSpeed: 1
   offset: {x: 0, y: 0.1, z: 0}
   splineContainer: {fileID: 1980725631}
   surface: {fileID: 489169336}
@@ -1373,6 +1373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53753819e664747bcf8f076a33cd2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startCurrency: 50
   currencyIncrease: 10
   currencyIncreaseTimer: 5
   currencyData: {fileID: 11400000, guid: 70464dac4661728408832f66b6bfd05a, type: 2}
