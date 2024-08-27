@@ -7,9 +7,13 @@ using UnityEngine.UIElements;
 public class CardUIHandler : UtkBase
 {
     public CurrencyData currencyData;
+
+    private VisualElement _mTowerHealthBar;
     
     private Label _mPlaceLbl;
     private Label _mCurrencyLbl;
+
+    private Button _mPauseBtn;
     private Button _mCannonBtn;
 
     public UnityEvent onCannonSelected;
@@ -17,16 +21,35 @@ public class CardUIHandler : UtkBase
     
     private void Start()
     {
+        _mTowerHealthBar = rootElement.Q<VisualElement>("HealthBar");
+        _mTowerHealthBar.style.width = new Length(100, LengthUnit.Percent);
+        
         _mCurrencyLbl = rootElement.Q<Label>("CurrencyLbl");
         _mCurrencyLbl.text = "50";
         
         _mCannonBtn = rootElement.Q<Button>("CannonBtn");
+        _mPauseBtn = rootElement.Q<Button>("PauseBtn");
+        _mPauseBtn.clicked += HandlePauseLogic;
         _mCannonBtn.clicked += HandleCannonLogic;
         
         _mPlaceLbl = rootElement.Q<Label>("PlaceLabel");
         
         currencyData.onCurrencyChanged += HandleCurrencyChange;
-        
+        Health.onHealthDamaged += UpdateTowerHealthBar;
+
+    }
+
+    private int _paused = 0;
+    void HandlePauseLogic()
+    {
+        Debug.Log("Pause Game");
+        _paused = _paused == 0 ? 1 : 0;
+        Time.timeScale = _paused;
+    }
+
+    private void UpdateTowerHealthBar(float value)
+    {
+        _mTowerHealthBar.style.width = new Length(value, LengthUnit.Percent);
     }
 
     private void HandleCurrencyChange(int value)

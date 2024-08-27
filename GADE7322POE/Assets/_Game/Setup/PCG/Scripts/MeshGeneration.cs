@@ -72,7 +72,7 @@ namespace ProGen
                     var position = new Vector3(_vertices[i].x, pathHeight, _vertices[i].z);
                     grid.AddNodeToGrid(new Vector2Int(x,z), position);
                     
-                    if(z == 1) _startPositions.Add(_vertices[i]);
+                    if(z == 1 && x % 2 == 0) _startPositions.Add(_vertices[i]);
                     if (z == areaZ - 1 && x == randEndIndex) _endPosition = _vertices[i];
                     
                     i++;
@@ -123,9 +123,10 @@ namespace ProGen
             for (int i = 0; i < 3; i++)
             {
                 var spawnPos = _startPositions[UnityEngine.Random.Range(0, _startPositions.Count)];
-                spawnPos.y = pathHeight;
-                _spawnPositions.Add(spawnPos);
-                Instantiate(enemyStartPiece, spawnPos, Quaternion.identity);
+                var startSpawnPos = new Vector3(spawnPos.x, pathHeight, spawnPos.z);
+                
+                _spawnPositions.Add(startSpawnPos);
+                Instantiate(enemyStartPiece, startSpawnPos, Quaternion.identity);
                 _startPositions.Remove(spawnPos);
             }
 
@@ -183,7 +184,7 @@ namespace ProGen
             }
             
             UpdateVertices(paths);
-            enemySpawner.InitializeEnemy(paths);
+            enemySpawner.SpawnEnemies(paths);
             //pathGenerator.CreatePath(pathPositions);
         }
 

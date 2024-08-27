@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93b4d32fa4c45358b037994f10dc46a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageAmount: 10
-  speedMultiplier: 10
+  DamageAmount: 5
+  speedMultiplier: 5
 --- !u!33 &2772281185634282059
 MeshFilter:
   m_ObjectHideFlags: 0

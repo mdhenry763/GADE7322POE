@@ -21,9 +21,12 @@ public class EnemyController : MonoBehaviour
     private Coroutine followPath;
     private Coroutine attack;
 
+    private Animator _animator;
+
     private void OnEnable()
     {
         agent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
         agent.enabled = false;
     }
 
@@ -83,6 +86,8 @@ public class EnemyController : MonoBehaviour
             if (distance <= attackDistance)
             {
                 if(defender == null) StopAttacking();
+                _animator.SetBool("RUN", false);
+                _animator.SetBool("Attack", true);
                 
                 if (defender.TryGetComponent<IDamageable>(out var damageable))
                 {
@@ -108,6 +113,7 @@ public class EnemyController : MonoBehaviour
         {
             //Stop path walk to defender
             StopCoroutine(followPath);
+            
             agent.enabled = true;
             attackingDefender = other.gameObject;
             agent.SetDestination(other.transform.position);
@@ -119,6 +125,19 @@ public class EnemyController : MonoBehaviour
     {
         StopCoroutine(attack);
         agent.enabled = false;
+        
+        //Reset path at [i-1]
+
+        if (currentPathIndex < path.Count - 1)
+        {
+            currentPathIndex++;
+        }
+        
+        path[currentPathIndex] = transform.position;
+        
         followPath = StartCoroutine(FollowPath(gameObject, currentPathIndex));
+        
+        _animator.SetBool("Attack", false);
+        _animator.SetBool("RUN", true);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DDefence : MonoBehaviour, IDamageable
+public class DDefence : MonoBehaviour
 {
     [Header("Cannon Elements")]
     public Transform cannon;
@@ -28,6 +28,12 @@ public class DDefence : MonoBehaviour, IDamageable
         if (!other.CompareTag("enemyBug")) return;
         enemies.Add(other.gameObject);
         
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("enemyBug")) return;
+        enemies.Remove(other.gameObject);
     }
 
     private void Update()
@@ -81,6 +87,12 @@ public class DDefence : MonoBehaviour, IDamageable
         //loop through all enemies and get closest enemy then return direction
         foreach (var enemy in enemies)
         {
+            if (!enemy.activeInHierarchy)
+            {
+                enemies.Remove(enemy);
+                return Vector3.zero;
+            }
+            
             var distance = Vector3.Distance(cannon.position, enemy.transform.position);
 
             if (distance < minDistance)
@@ -92,20 +104,5 @@ public class DDefence : MonoBehaviour, IDamageable
         
         return closestPosition - cannon.position;
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("enemyBug")) return;
-        enemies.Remove(other.gameObject);
-    }
-
-    public void Damage(int amount)
-    {
-        
-    }
-}
-
-public interface IDamageable
-{
-    public void Damage(int amount);
+    
 }
