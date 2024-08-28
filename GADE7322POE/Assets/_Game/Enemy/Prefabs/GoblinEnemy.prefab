@@ -1071,6 +1071,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 20
+  damageType: 1
+  parentObject: {fileID: 6736667856175754488}
   onDamaged:
     m_PersistentCalls:
       m_Calls: []

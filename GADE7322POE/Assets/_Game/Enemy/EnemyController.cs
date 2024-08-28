@@ -81,27 +81,37 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
-            var distance = Vector3.Distance(transform.position, defender.transform.position);
-
-            if (distance <= attackDistance)
+            if (defender == null)
             {
-                if(defender == null) StopAttacking();
-                _animator.SetBool("RUN", false);
-                _animator.SetBool("Attack", true);
-                
-                if (defender.TryGetComponent<IDamageable>(out var damageable))
-                {
-                    //Break out of attack if defender dead
-                    damageable.Damage(attackDamage);
-                }
-
-                if (!defender.activeInHierarchy)
-                {
-                    StopAttacking();
-                }
-
-                yield return new WaitForSeconds(attackTimer);
+                StopAttacking();
+                yield return null;
             }
+            else
+            {
+                var distance = Vector3.Distance(transform.position, defender.transform.position);
+
+                if (distance <= attackDistance)
+                {
+                    if(defender == null) StopAttacking();
+                    _animator.SetBool("RUN", false);
+                    _animator.SetBool("Attack", true);
+                
+                    if (defender.TryGetComponent<IDamageable>(out var damageable))
+                    {
+                        //Break out of attack if defender dead
+                        damageable.Damage(attackDamage);
+                    }
+
+                    if (!defender.activeInHierarchy)
+                    {
+                        StopAttacking();
+                    }
+
+                    yield return new WaitForSeconds(attackTimer);
+                }
+            }
+            
+           
             yield return null;
         }
     }

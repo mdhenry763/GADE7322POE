@@ -13,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
      [Header("Goblin Spawn")] 
      public GameObject goblinPrefab;
      public float spawnInterval = 5;
+     public float spawnIntervalDecreaseOverTime = 1f;
      public float goblinSpeed = 1;
      public Vector3 offset = new Vector3(0, 0.5f, 0);
      
@@ -31,6 +32,7 @@ public class EnemySpawner : MonoBehaviour
           surface.BuildNavMesh();
 
           StartCoroutine(SpawnEnemiesOnInterval(paths));
+          StartCoroutine(SpawnIntervalDecrease());
      }
 
      IEnumerator SpawnEnemiesOnInterval(Dictionary<int, List<Vector3>> paths)
@@ -47,6 +49,18 @@ public class EnemySpawner : MonoBehaviour
                yield return new WaitForSeconds(spawnInterval);
           }
      }
-     
+
+     IEnumerator SpawnIntervalDecrease()
+     {
+          yield return new WaitForSeconds(30f);
+
+          if (spawnInterval > 1)
+          {
+               spawnInterval--;
+          }
+     }
+
+
+
 
 }

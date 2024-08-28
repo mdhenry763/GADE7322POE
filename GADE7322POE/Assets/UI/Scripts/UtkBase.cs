@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public abstract class UtkBase : MonoBehaviour
 {
+    public bool startHidden;
+    
     private UIDocument _document;
     
     protected VisualElement rootElement;
@@ -11,7 +14,14 @@ public abstract class UtkBase : MonoBehaviour
     {
         _document = GetComponent<UIDocument>();
         rootElement = _document.rootVisualElement.Q<VisualElement>("Root");
+        
     }
+    
+    protected virtual void Start()
+    {
+        if(startHidden) Hide();
+    }
+    
 
     public virtual void Show()
     {

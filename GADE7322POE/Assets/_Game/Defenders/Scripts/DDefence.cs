@@ -87,7 +87,7 @@ public class DDefence : MonoBehaviour
         //loop through all enemies and get closest enemy then return direction
         foreach (var enemy in enemies)
         {
-            if (!enemy.activeInHierarchy)
+            if (enemy == null)
             {
                 enemies.Remove(enemy);
                 return Vector3.zero;

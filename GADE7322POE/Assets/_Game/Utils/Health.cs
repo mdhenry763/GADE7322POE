@@ -7,12 +7,15 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour, IDamageable
 {
     public int MaxHealth = 100;
+    public DamageType damageType;
+    public GameObject parentObject;
 
     private int _currentHealth;
     private Animator _animator;
     
     public UnityEvent<float> onDamaged;
-    public static event Action<float> onHealthDamaged; 
+    public static event Action<float, DamageType> onHealthDamaged;
+    public static event Action onGameEnd;
 
     private void Start()
     {
@@ -24,7 +27,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         _currentHealth -= amount;
         onDamaged?.Invoke(GetHealthFillAmount());
-        //onHealthDamaged?.Invoke((float)_currentHealth / ((float)MaxHealth/ 100f));
+        onHealthDamaged?.Invoke((float)_currentHealth / ((float)MaxHealth/ 100f), damageType);
 
         if (_currentHealth <= 0)
         {
@@ -39,19 +42,28 @@ public class Health : MonoBehaviour, IDamageable
             _animator.SetBool("RUN", false);
             _animator.SetBool("Attack", false);
             _animator.SetBool("Death", true);
+            yield return new WaitForSeconds(2f);
         }
 
-        yield return 1f;
-        gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        Destroy(parentObject);
     }
     
     public void Death()
     {
-        StopCoroutine(DeathAnim());
+        if(damageType == DamageType.Tower) onGameEnd?.Invoke();
+        StartCoroutine(DeathAnim());
     }
 
     private float GetHealthFillAmount()
     {
         return (float)_currentHealth / (float)MaxHealth;
     }
+}
+
+public enum DamageType
+{
+    Tower,
+    Goblin,
+    Defender
 }

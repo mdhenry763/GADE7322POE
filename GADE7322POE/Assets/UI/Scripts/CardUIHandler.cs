@@ -17,10 +17,13 @@ public class CardUIHandler : UtkBase
     private Button _mCannonBtn;
 
     public UnityEvent onCannonSelected;
+    public UnityEvent onPaused;
     
     
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        
         _mTowerHealthBar = rootElement.Q<VisualElement>("HealthBar");
         _mTowerHealthBar.style.width = new Length(100, LengthUnit.Percent);
         
@@ -42,13 +45,13 @@ public class CardUIHandler : UtkBase
     private int _paused = 0;
     void HandlePauseLogic()
     {
-        Debug.Log("Pause Game");
-        _paused = _paused == 0 ? 1 : 0;
-        Time.timeScale = _paused;
+        onPaused?.Invoke();
+        Time.timeScale = 0;
     }
 
-    private void UpdateTowerHealthBar(float value)
+    private void UpdateTowerHealthBar(float value, DamageType type)
     {
+        if(type != DamageType.Tower) return;
         _mTowerHealthBar.style.width = new Length(value, LengthUnit.Percent);
     }
 
