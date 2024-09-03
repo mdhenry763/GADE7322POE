@@ -29,7 +29,6 @@ public class CurrencyData : ScriptableObject
     {
         var cardCost = defenders.FirstOrDefault(defenderCard => defenderCard.DefenderType == EDefender.Cannon).Cost;
         var canPurchase = Currency >= cardCost;
-        if(canPurchase) UpdateCurrency(-cardCost);
         return canPurchase;
     }
 }

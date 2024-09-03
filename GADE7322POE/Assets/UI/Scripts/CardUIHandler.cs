@@ -12,6 +12,7 @@ public class CardUIHandler : UtkBase
     
     private Label _mPlaceLbl;
     private Label _mCurrencyLbl;
+    private Label _mCoinLbl;
 
     private Button _mPauseBtn;
     private Button _mCannonBtn;
@@ -28,6 +29,7 @@ public class CardUIHandler : UtkBase
         _mTowerHealthBar.style.width = new Length(100, LengthUnit.Percent);
         
         _mCurrencyLbl = rootElement.Q<Label>("CurrencyLbl");
+        _mCoinLbl = rootElement.Q<Label>("CoinLbl");
         _mCurrencyLbl.text = "50";
         
         _mCannonBtn = rootElement.Q<Button>("CannonBtn");
@@ -45,6 +47,7 @@ public class CardUIHandler : UtkBase
     private int _paused = 0;
     void HandlePauseLogic()
     {
+        SoundManager.Instance.PlaySound(SoundType.Button);
         onPaused?.Invoke();
         Time.timeScale = 0;
     }
@@ -52,16 +55,28 @@ public class CardUIHandler : UtkBase
     private void UpdateTowerHealthBar(float value, DamageType type)
     {
         if(type != DamageType.Tower) return;
+        SoundManager.Instance.PlaySound(SoundType.TowerDamaged);
         _mTowerHealthBar.style.width = new Length(value, LengthUnit.Percent);
     }
 
+    private Coroutine _coinCoroutine;
     private void HandleCurrencyChange(int value)
     {
+        if(_coinCoroutine != null) StopCoroutine(_coinCoroutine);
+        _coinCoroutine = StartCoroutine(CoinHide());
         _mCurrencyLbl.text = value.ToString();
     }
 
+    IEnumerator CoinHide()
+    {
+        _mCoinLbl.RemoveFromClassList("coin_hide");
+        yield return new WaitForSeconds(1f);
+        _mCoinLbl.AddToClassList("coin_hide");
+    }
+    
     private void HandleCannonLogic()
     {
+        SoundManager.Instance.PlaySound(SoundType.Button);
         _mPlaceLbl.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
         if (currencyData.CanPurchaseCannon())
         {

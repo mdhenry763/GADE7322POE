@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class DefenderHandler : MonoBehaviour
 {
     public GameObject defender;
+    public CurrencyData currencyData;
     
     private Camera _mainCam;
     private Controls _controls;
@@ -43,14 +44,16 @@ public class DefenderHandler : MonoBehaviour
         if (Physics.Raycast(mousePos, out var hit, 100f))
         {
             Debug.Log(hit.transform.tag + " || " + hit.transform.position);
-            if (!hit.transform.CompareTag("Path") && hit.point.y < 2 && !hit.transform.CompareTag("Defender"))
-            {
-                //Do something
-                
-                SpawnDefender(hit.point);
-                canPlace = false;
-                onTowerPlaced?.Invoke();
-            }
+            
+            if (!hit.transform.CompareTag("Ground") || !(hit.point.y < 2)) return;
+            
+            //Do something
+            Debug.Log($"Trying to place on {hit.transform.tag}");
+            currencyData.UpdateCurrency(-50);
+            SoundManager.Instance.PlaySound(SoundType.CannonPlaced);
+            SpawnDefender(hit.point);
+            canPlace = false;
+            onTowerPlaced?.Invoke();
         }
     }
 

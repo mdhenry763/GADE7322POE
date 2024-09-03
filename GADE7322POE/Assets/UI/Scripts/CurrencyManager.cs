@@ -22,6 +22,7 @@ public class CurrencyManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(currencyIncreaseTimer);
+            SoundManager.Instance.PlaySound(SoundType.CoinIncrease);
             currencyData.UpdateCurrency(currencyIncrease);
         }
     }

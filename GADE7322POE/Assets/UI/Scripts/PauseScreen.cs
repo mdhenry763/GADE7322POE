@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class PauseScreen : UtkBase
 {
     private Button _mContinueBtn;
-    private Button _mSettingsBtn;
+    private Button _mRestartBtn;
     private Button _mReturnToMenuBtn;
     private Button _mQuitGameBtn;
 
@@ -19,7 +19,7 @@ public class PauseScreen : UtkBase
         base.Start();
 
         _mContinueBtn = rootElement.Q<Button>("ResumeBtn");
-        _mSettingsBtn = rootElement.Q<Button>("SettingsBtn");
+        _mRestartBtn = rootElement.Q<Button>("RestartBtn");
         _mReturnToMenuBtn = rootElement.Q<Button>("ReturnToMenuBtn");
         _mQuitGameBtn = rootElement.Q<Button>("QuitBtn");
 
@@ -27,15 +27,18 @@ public class PauseScreen : UtkBase
         {
             Time.timeScale = 1;
             onContinueGame?.Invoke();
+            SoundManager.Instance.PlaySound(SoundType.Button);
         };
 
-        _mSettingsBtn.clicked += () =>
+        _mRestartBtn.clicked += () =>
         {
-            Debug.Log("Settings");
+            SoundManager.Instance.PlaySound(SoundType.Button);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         };
 
         _mReturnToMenuBtn.clicked += () =>
         {
+            SoundManager.Instance.PlaySound(SoundType.Button);
             SceneManager.LoadScene(0);
         };
 

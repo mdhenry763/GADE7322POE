@@ -42,6 +42,7 @@ public class Health : MonoBehaviour, IDamageable
             _animator.SetBool("RUN", false);
             _animator.SetBool("Attack", false);
             _animator.SetBool("Death", true);
+            SoundManager.Instance.PlaySound(SoundType.EnemyKilled);
             yield return new WaitForSeconds(2f);
         }
 

@@ -68,15 +68,15 @@ public class DDefence : MonoBehaviour
 
     void Shoot(Vector3 direction)
     {
-        if (_canShoot)
+        if (!_canShoot) return;
+        
+        var spawnedBall = Instantiate(cannonBall, shootPos.position, Quaternion.identity);
+        if (spawnedBall.TryGetComponent<CannonBallLogic>(out var cannonBallLogic))
         {
-            var spawnedBall = Instantiate(cannonBall, shootPos.position, Quaternion.identity);
-            if (spawnedBall.TryGetComponent<CannonBallLogic>(out var cannonBallLogic))
-            {
-                cannonBallLogic.InitMotion(enemies[0].transform.position - cannon.position);
-            }
-            _canShoot = false;
+            cannonBallLogic.InitMotion(enemies[0].transform.position - cannon.position);
+            SoundManager.Instance.PlaySound(SoundType.CannonFire);
         }
+        _canShoot = false;
     }
     
     private Vector3 GetClosestEnemyDirection()

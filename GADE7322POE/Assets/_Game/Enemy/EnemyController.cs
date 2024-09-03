@@ -100,6 +100,7 @@ public class EnemyController : MonoBehaviour
                     {
                         //Break out of attack if defender dead
                         damageable.Damage(attackDamage);
+                        SoundManager.Instance.PlaySound(SoundType.DefenderDamaged);
                     }
 
                     if (!defender.activeInHierarchy)
