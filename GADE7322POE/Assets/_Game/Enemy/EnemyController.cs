@@ -37,7 +37,8 @@ public class EnemyController : MonoBehaviour
         this.speed = speed;
 
         transform.position = path[0];
-        
+
+        currentPathIndex = 0;
         followPath = StartCoroutine(FollowPath(gameObject, 0));
     }
     
@@ -139,9 +140,13 @@ public class EnemyController : MonoBehaviour
         
         //Reset path at [i-1]
 
-        if (currentPathIndex < path.Count - 1)
+        if (currentPathIndex < path.Count - 2)
         {
             currentPathIndex++;
+        }
+        else
+        {
+            currentPathIndex = path.Count - 1;
         }
         
         path[currentPathIndex] = transform.position;

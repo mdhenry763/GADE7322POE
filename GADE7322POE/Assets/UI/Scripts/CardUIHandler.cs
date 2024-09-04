@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,8 +63,8 @@ public class CardUIHandler : UtkBase
     private Coroutine _coinCoroutine;
     private void HandleCurrencyChange(int value)
     {
-        if(_coinCoroutine != null) StopCoroutine(_coinCoroutine);
-        _coinCoroutine = StartCoroutine(CoinHide());
+        //if(_coinCoroutine != null) StopCoroutine(_coinCoroutine);
+        //_coinCoroutine = StartCoroutine(CoinHide());
         _mCurrencyLbl.text = value.ToString();
     }
 
@@ -101,5 +102,10 @@ public class CardUIHandler : UtkBase
     public void HideCannonPrompt()
     {
         _mPlaceLbl.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
+    }
+
+    private void OnDestroy()
+    {
+        _coinCoroutine = null;
     }
 }

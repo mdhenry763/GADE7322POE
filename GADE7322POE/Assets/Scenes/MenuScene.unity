@@ -185,6 +185,100 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 45572539}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &66944671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 66944672}
+  - component: {fileID: 66944673}
+  - component: {fileID: 66944674}
+  m_Layer: 0
+  m_Name: Ref
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &66944672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66944671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2074210177}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &66944673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66944671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 3e870d4f0c0470541bce131ead3d40d9, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: c2d6917da84a3c1479ecdc9ab60437c5,
+    type: 3}
+  m_SortingOrder: 1
+--- !u!114 &66944674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66944671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0288a4d37894c3143a3978640154368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startHidden: 1
+  References: 'Refencing for GADE7322:
+
+
+    ForestAsset: The towers and goblins'
+  onShowRef:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 66944674}
+        m_TargetAssemblyTypeName: UtkBase, Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1886410610}
+        m_TargetAssemblyTypeName: UtkBase, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &151740355
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,6 +2809,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1886410608}
   - component: {fileID: 1886410609}
+  - component: {fileID: 1886410610}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
@@ -2754,6 +2849,46 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: a0ffb2d3852ace146bb2b9363865c48c,
     type: 3}
   m_SortingOrder: 1
+--- !u!114 &1886410610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886410607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc8edb75b93f2d4b9a8760119c5b6a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startHidden: 0
+  onShowRef:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 66944674}
+        m_TargetAssemblyTypeName: UtkBase, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1886410610}
+        m_TargetAssemblyTypeName: UtkBase, Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1886944578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3016,6 +3151,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1886410608}
+  - {fileID: 66944672}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2107904373
