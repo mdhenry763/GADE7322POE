@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour, IDamageable
 {
     public int MaxHealth = 100;
+    public ParticleSystem damagePS;
     public DamageType damageType;
     public GameObject parentObject;
 
@@ -26,6 +27,7 @@ public class Health : MonoBehaviour, IDamageable
     public void Damage(int amount)
     {
         _currentHealth -= amount;
+        damagePS.Play();
         onDamaged?.Invoke(GetHealthFillAmount());
         onHealthDamaged?.Invoke((float)_currentHealth / ((float)MaxHealth/ 100f), damageType);
 

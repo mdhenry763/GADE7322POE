@@ -11,149 +11,204 @@ public class EnemyController : MonoBehaviour
     public float attackDistance = 3f;
     public int attackDamage = 10;
     
-    private List<Vector3> path;
+    private Queue<Vector3> pathQueue;
+    private Queue<GameObject> defenders;
+    
     private Vector3 offset;
+    private Vector3 currentPos;
+    private Vector3 nextPos;
+    
     private float speed;
-
-    private int currentPathIndex;
+    
     private NavMeshAgent agent;
-
-    private Coroutine followPath;
-    private Coroutine attack;
-
     private Animator _animator;
+    
+    private bool spawned;
+    
+    private bool attacking;
+    private float timer;
 
     private void OnEnable()
     {
-        agent = GetComponent<NavMeshAgent>();
+        pathQueue = new Queue<Vector3>();
+        defenders = new Queue<GameObject>();
+        spawned = false;
+        timer = attackTimer;
+
         _animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
         agent.enabled = false;
     }
 
     public void InitEnemy(List<Vector3> path, Vector3 offset, float speed)
     {
-        this.path = path;
+        foreach (var point in path)
+        {
+            pathQueue.Enqueue(point);
+        }
+        
         this.offset = offset;
         this.speed = speed;
 
         transform.position = path[0];
-
-        currentPathIndex = 0;
-        followPath = StartCoroutine(FollowPath(gameObject, 0));
+        nextPos = path[0];
+        spawned = true;
     }
+
+    private void Update()
+    {
+        if(!spawned) return;
+
+        if (defenders.Count > 0)
+        {
+            AttackDefender();
+        }
+        else
+        {
+            FollowPath();
+        }
+    }
+
+    private void FollowPath()
+    {
+        if(pathQueue.Count == 0) return;
+        
+        var direction = nextPos - transform.position;
+        transform.rotation = Quaternion.LookRotation(direction);
+        
+        if (HasReachedDestination(nextPos))
+        {
+            nextPos = pathQueue.Dequeue();
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, nextPos, Time.deltaTime * speed);
+        }
+    }
+
+    private bool HasReachedDestination(Vector3 nextPos)
+    {
+        var distance = Vector3.Distance(transform.position, nextPos);
+        return distance < 1;
+    }
+
+    private void AttackDefender()
+    {
+        Debug.Log("Attack");
+
+        var defender = defenders.Peek();
+        
+        if (defender == null)
+        {
+            _animator.SetBool("Attack", false);
+            _animator.SetBool("RUN", true);
+            
+            defenders.Dequeue();
+            return;
+        }
+
+        if (!attacking)
+        {
+            _animator.SetBool("RUN", false);
+            _animator.SetBool("Attack", true);
+            attacking = true;
+        }
+        
+        var distance = Vector3.Distance(transform.position, defender.transform.position);
+        transform.position = Vector3.Lerp(transform.position, defender.transform.position, Time.deltaTime * 1.1f);
+        timer -= Time.deltaTime;
+
+        if (timer <= 0)
+        {
+            if(defender.TryGetComponent<IDamageable>(out var damageable))
+            {
+                damageable.Damage(attackDamage);
+            }
+
+            timer = attackTimer;
+        }
+
+
+    }
+
     
-    IEnumerator FollowPath(GameObject enemy, int index)
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        for (int i = index + 1; i < path.Count; i++)
-        {
-            var currentPosition = path[i - 1] + offset;
-            currentPathIndex = i+1;
-            var nextPosition = path[i] + offset;
-
-            float elapsedTime = 0f;
-            float journeyLength = Vector3.Distance(currentPosition, nextPosition);
-
-            while (elapsedTime < journeyLength / speed)
-            {
-                // Calculate the interpolation factor (t)
-                float t = elapsedTime * speed / journeyLength;
-
-                // Interpolate position
-                enemy.transform.position = Vector3.Lerp(currentPosition, nextPosition, t);
-                
-                //Set Direction
-                var direction = nextPosition - enemy.transform.position;
-                enemy.transform.rotation = Quaternion.LookRotation(direction);
-
-                // Increase the elapsed time
-                elapsedTime += Time.deltaTime;
-
-                yield return null; // Wait for the next frame
-            }
-            
-            // Ensure the enemy reaches the exact position
-            enemy.transform.position = nextPosition;
-        }
-    }
-
-    IEnumerator Attack(GameObject defender)
-    {
-        while (true)
-        {
-            if (defender == null)
-            {
-                StopAttacking();
-                yield return null;
-            }
-            else
-            {
-                var distance = Vector3.Distance(transform.position, defender.transform.position);
-
-                if (distance <= attackDistance)
-                {
-                    if(defender == null) StopAttacking();
-                    _animator.SetBool("RUN", false);
-                    _animator.SetBool("Attack", true);
-                
-                    if (defender.TryGetComponent<IDamageable>(out var damageable))
-                    {
-                        //Break out of attack if defender dead
-                        damageable.Damage(attackDamage);
-                        SoundManager.Instance.PlaySound(SoundType.DefenderDamaged);
-                    }
-
-                    if (!defender.activeInHierarchy)
-                    {
-                        StopAttacking();
-                    }
-
-                    yield return new WaitForSeconds(attackTimer);
-                }
-            }
-            
-           
-            yield return null;
-        }
-    }
-
-    private GameObject attackingDefender;
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Defender"))
         {
-            //Stop path walk to defender
-            StopCoroutine(followPath);
+            defenders.Enqueue(other.gameObject);
             
-            agent.enabled = true;
-            attackingDefender = other.gameObject;
-            agent.SetDestination(other.transform.position);
-            attack = StartCoroutine(Attack(other.gameObject));
         }
     }
 
-    private void StopAttacking()
+    private void OnTriggerExit(Collider other)
     {
-        StopCoroutine(attack);
-        agent.enabled = false;
-        
-        //Reset path at [i-1]
+        if (other.CompareTag("Defender"))
+        {
+            if (defenders.Contains(other.gameObject))
+            {
+                defenders.Enqueue(other.gameObject);
+            }
 
-        if (currentPathIndex < path.Count - 2)
-        {
-            currentPathIndex++;
+            if (defenders.Count == 0)
+            {
+                attacking = false;
+            }
         }
-        else
+    }
+}
+
+public interface IState
+{
+    public void OnEnter();
+    public void OnUpdate();
+    public void OnExit();
+}
+
+public class AttackState : IState
+{
+    private Animator anim;
+    private float attackRate;
+    private GameObject target;
+
+    private float timer;
+
+
+    public AttackState(Animator anim, GameObject target, float attackRate)
+    {
+        this.anim = anim;
+        this.target = target;
+        this.attackRate = attackRate;
+
+        timer = attackRate;
+    }
+
+    public void OnEnter()
+    {
+        anim.SetBool("RUN", false);
+        anim.SetBool("Attack", true);
+    }
+
+    public void OnUpdate()
+    {
+        timer -= Time.deltaTime;
+
+        if (timer <= 0)
         {
-            currentPathIndex = path.Count - 1;
+            timer = attackRate;
+            if (target.TryGetComponent<IDamageable>(out var damageable))
+            {
+                damageable.Damage(10);
+            }
+            
         }
         
-        path[currentPathIndex] = transform.position;
         
-        followPath = StartCoroutine(FollowPath(gameObject, currentPathIndex));
-        
-        _animator.SetBool("Attack", false);
-        _animator.SetBool("RUN", true);
+    }
+
+    public void OnExit()
+    {
+        anim.SetBool("RUN", true);
+        anim.SetBool("Attack", false);
     }
 }

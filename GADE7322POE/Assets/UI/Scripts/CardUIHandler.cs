@@ -63,8 +63,8 @@ public class CardUIHandler : UtkBase
     private Coroutine _coinCoroutine;
     private void HandleCurrencyChange(int value)
     {
-        //if(_coinCoroutine != null) StopCoroutine(_coinCoroutine);
-        //_coinCoroutine = StartCoroutine(CoinHide());
+        if(_coinCoroutine != null) StopCoroutine(_coinCoroutine);
+        _coinCoroutine = StartCoroutine(CoinHide());
         _mCurrencyLbl.text = value.ToString();
     }
 

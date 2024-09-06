@@ -32,12 +32,15 @@ public class PauseScreen : UtkBase
 
         _mRestartBtn.clicked += () =>
         {
+            Time.timeScale = 1;
             SoundManager.Instance.PlaySound(SoundType.Button);
-            SceneLoaderScript.Instance.RestartGame();
+            SceneManager.LoadScene(2);
+            //SceneLoaderScript.Instance.RestartGame();
         };
 
         _mReturnToMenuBtn.clicked += () =>
         {
+            Time.timeScale = 1;
             SoundManager.Instance.PlaySound(SoundType.Button);
             SceneManager.LoadScene(0);
         };

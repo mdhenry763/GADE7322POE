@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,11 +11,13 @@ public class CurrencyManager : MonoBehaviour
     [Header("References: ")]
     public CurrencyData currencyData;
 
+    private Coroutine currencyCoroutine;
+
     private void Start()
     {
         currencyData.ResetCurrency();
         currencyData.UpdateCurrency(50);
-        StartCoroutine(SetPlayerCurrency());
+        currencyCoroutine = StartCoroutine(SetPlayerCurrency());
     }
 
     IEnumerator SetPlayerCurrency()
@@ -25,5 +28,10 @@ public class CurrencyManager : MonoBehaviour
             SoundManager.Instance.PlaySound(SoundType.CoinIncrease);
             currencyData.UpdateCurrency(currencyIncrease);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if(currencyCoroutine != null) StopCoroutine(currencyCoroutine);
     }
 }

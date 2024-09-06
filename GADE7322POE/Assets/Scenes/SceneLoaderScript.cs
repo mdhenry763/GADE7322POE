@@ -6,55 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoaderScript : MonoBehaviour
 {
-    public static SceneLoaderScript instance;
-
-    public static SceneLoaderScript Instance
+    private void Start()
     {
-        get
-        {
-            if (Instance == null)
-            {
-                SetupInstance();
-            }
-
-            return instance;
-        }
+        StartCoroutine(RestartTimer());
+        Debug.Log("Loading");
     }
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public void RestartGame()
-    {
-        StopCoroutine(RestartTimer());
-    }
+    
 
     IEnumerator RestartTimer()
     {
-        SceneManager.LoadScene(2);
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("GameScene");
     }
-
-    private static void SetupInstance()
-    {
-        instance = FindObjectOfType<SceneLoaderScript>();
-        if (instance == null)
-        {
-            GameObject gameObj = new GameObject();
-            gameObj.name = "Scene Loader";
-            instance = gameObj.AddComponent<SceneLoaderScript>();
-            DontDestroyOnLoad(gameObj);
-        }
-    }
+    
 }
