@@ -13,13 +13,17 @@ public class CurrencyManager : MonoBehaviour
 
     private Coroutine currencyCoroutine;
 
-    private void Start()
+    private void Start() // Start coroutine for updating currency
     {
         currencyData.ResetCurrency();
         currencyData.UpdateCurrency(50);
         currencyCoroutine = StartCoroutine(SetPlayerCurrency());
     }
 
+    /// <summary>
+    /// Handle Updating currency at interval
+    /// </summary>
+    /// <returns></returns>
     IEnumerator SetPlayerCurrency()
     {
         while (true)

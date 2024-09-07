@@ -36,6 +36,10 @@ public class DefenderHandler : MonoBehaviour
         canPlace = true;
     }
 
+    /// <summary>
+    /// Spawn defender on mouse click after check if can spawn
+    /// </summary>
+    /// <param name="obj"></param>
     private void MouseClick(InputAction.CallbackContext obj)
     {
         if(!canPlace) return;

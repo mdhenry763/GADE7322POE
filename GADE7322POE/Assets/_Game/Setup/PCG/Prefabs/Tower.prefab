@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 3304261980039790604}
   - component: {fileID: 4217666807073118614}
   - component: {fileID: 8388772797562486010}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tower
   m_TagString: Defender
   m_Icon: {fileID: 0}

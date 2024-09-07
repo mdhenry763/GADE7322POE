@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoaderScript : MonoBehaviour
 {
+    /// <summary>
+    /// Script for loading screen to game scene
+    /// </summary>
     private void Start()
     {
         StartCoroutine(RestartTimer());

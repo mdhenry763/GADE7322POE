@@ -1177,6 +1177,9 @@ MonoBehaviour:
   attackTimer: 3
   attackDistance: 3
   attackDamage: 10
+  defenderLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!54 &3861533672883668008
 Rigidbody:
   m_ObjectHideFlags: 0

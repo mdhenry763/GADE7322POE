@@ -26,6 +26,7 @@ public class CardUIHandler : UtkBase
     {
         base.Start();
         
+        //Setup Buttons and Labels for UI control
         _mTowerHealthBar = rootElement.Q<VisualElement>("HealthBar");
         _mTowerHealthBar.style.width = new Length(100, LengthUnit.Percent);
         
@@ -35,11 +36,13 @@ public class CardUIHandler : UtkBase
         
         _mCannonBtn = rootElement.Q<Button>("CannonBtn");
         _mPauseBtn = rootElement.Q<Button>("PauseBtn");
+        //Handle onClick events
         _mPauseBtn.clicked += HandlePauseLogic;
         _mCannonBtn.clicked += HandleCannonLogic;
         
         _mPlaceLbl = rootElement.Q<Label>("PlaceLabel");
         
+        //Handle currency and Tower health
         currencyData.onCurrencyChanged += HandleCurrencyChange;
         Health.onHealthDamaged += UpdateTowerHealthBar;
 
@@ -50,32 +53,34 @@ public class CardUIHandler : UtkBase
     {
         SoundManager.Instance.PlaySound(SoundType.Button);
         onPaused?.Invoke();
-        Time.timeScale = 0;
+        Time.timeScale = 0; //Stop game time
     }
 
     private void UpdateTowerHealthBar(float value, DamageType type)
     {
         if(type != DamageType.Tower) return;
+        //Play Sound when tower damaged
         SoundManager.Instance.PlaySound(SoundType.TowerDamaged);
+        //Set Health bar
         _mTowerHealthBar.style.width = new Length(value, LengthUnit.Percent);
     }
 
     private Coroutine _coinCoroutine;
-    private void HandleCurrencyChange(int value)
+    private void HandleCurrencyChange(int value) // Change coin label on UI 
     {
         if(_coinCoroutine != null) StopCoroutine(_coinCoroutine);
         _coinCoroutine = StartCoroutine(CoinHide());
         _mCurrencyLbl.text = value.ToString();
     }
 
-    IEnumerator CoinHide()
+    IEnumerator CoinHide() // Hide coin animation
     {
         _mCoinLbl.RemoveFromClassList("coin_hide");
         yield return new WaitForSeconds(1f);
         _mCoinLbl.AddToClassList("coin_hide");
     }
     
-    private void HandleCannonLogic()
+    private void HandleCannonLogic() //handle cannon clicked
     {
         SoundManager.Instance.PlaySound(SoundType.Button);
         _mPlaceLbl.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
@@ -99,7 +104,7 @@ public class CardUIHandler : UtkBase
         _mPlaceLbl.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
     }
 
-    public void HideCannonPrompt()
+    public void HideCannonPrompt() //Hide cannon propmt
     {
         _mPlaceLbl.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
     }

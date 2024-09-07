@@ -29,10 +29,15 @@ public class PathFinder
         grid = gridManager.Grid;
     }
 
+    /// <summary>
+    /// Check for different nodes in all direction up, right, down, left
+    /// </summary>
     void ExploreNeighbours()
     {
+        //Initialize neighbours
         List<Node> neighbours = new List<Node>();
     
+        //Get neighbours
         foreach (var direction in directions)
         {
             var coords = _currentSearchNode.coordinates + direction;
@@ -46,24 +51,28 @@ public class PathFinder
         {
             if (!reached.ContainsKey(neighbour.coordinates) && neighbour.isWalkable)
             {
+                //Set node connections for BFS
                 neighbour.connectedTo = _currentSearchNode;
-                //Debug.Log($"Setting {neighbour.coordinates} connectedTo {neighbour.connectedTo.coordinates}");
                 reached.Add(neighbour.coordinates, neighbour);
                 frontier.Enqueue(neighbour);
             }
         }
     }
 
-
+    /// <summary>
+    /// handles path creation and gives enemies a path to use
+    /// </summary>
     public void BreadthFirstSearch()
     {
         _startNode.isWalkable = true;
         _destinationNode.isWalkable = true;
     
         bool isRunning = true;
+        //Node start
         frontier.Enqueue(_startNode);
         reached.Add(_startNode.coordinates, _startNode);
 
+        //Create path
         while (frontier.Count > 0 && isRunning)
         {
             _currentSearchNode = frontier.Dequeue();
@@ -73,25 +82,25 @@ public class PathFinder
             
             if (_currentSearchNode.coordinates == _destinationNode.coordinates)
             {
-                Debug.Log("Reached destination!");
                 isRunning = false;
                 
+                //Link destination node if node not set
                 if (_destinationNode.connectedTo == null)
                 {
                     _destinationNode.connectedTo = _currentSearchNode.connectedTo;
-                    Debug.Log($"Forcing connection of destination node: {_destinationNode.connectedTo?.coordinates}");
                 }
             }
         }
     }
 
-
+    /// <summary>
+    ///  return a list of nodes that contains the path
+    /// </summary>
+    /// <returns></returns>
     public List<Node> BuildPath()
     {
         List<Node> path = new List<Node>();
         Node currentNode = _destinationNode;
-        Debug.Log(_destinationNode.connectedTo);
-        Debug.Log(_startNode.connectedTo);
 
         if (currentNode == null) return path;
         
@@ -105,10 +114,11 @@ public class PathFinder
             currentNode.isPath = true;
         }
 
+        //Reverse generated path, end node is first node
         path.Reverse();
 
+        //Get the position of each node
         var pathPositions = path.Select(node => node.position).ToList();
-        //Debugging remove later
 
         onPathGenerated?.Invoke(pathPositions);
         return path;

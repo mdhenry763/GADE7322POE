@@ -153,7 +153,7 @@ MonoBehaviour:
   shootPos: {fileID: 8209198684737736892}
   cannonBall: {fileID: 1940186658668467378, guid: a46c9109ea22a214d812261f04397298,
     type: 3}
-  shootTimer: 3
+  shootTimer: 200
 --- !u!1 &2303422026163076775
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 7338939002329855824}
   - component: {fileID: 2530126509607002712}
   - component: {fileID: 3434494268073452929}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: D_Cannon
   m_TagString: Defender
   m_Icon: {fileID: 0}

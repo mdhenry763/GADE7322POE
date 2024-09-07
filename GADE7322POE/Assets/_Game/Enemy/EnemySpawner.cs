@@ -31,10 +31,15 @@ public class EnemySpawner : MonoBehaviour
           splineContainer.GetComponent<SplineInstantiate>();
           surface.BuildNavMesh();
 
-          StartCoroutine(SpawnEnemiesOnInterval(paths));
+          StartCoroutine(SpawnEnemiesOnInterval(paths)); //Spawn interval
           StartCoroutine(SpawnIntervalDecrease());
      }
 
+     /// <summary>
+     /// Spawn enemies on the paths based on the interval timer
+     /// </summary>
+     /// <param name="paths"></param>
+     /// <returns></returns>
      IEnumerator SpawnEnemiesOnInterval(Dictionary<int, List<Vector3>> paths)
      {
           while (true)
@@ -42,15 +47,17 @@ public class EnemySpawner : MonoBehaviour
                var index = Random.Range(0, paths.Count);
                path = paths[index];
 
+               //Spawn enemy on random path
                var enemyObj = Instantiate(goblinPrefab, this.transform);
                var enemyController = enemyObj.GetComponent<EnemyController>();
+               //Initialise enemy
                enemyController.InitEnemy(path, offset, goblinSpeed);
                
                yield return new WaitForSeconds(spawnInterval);
           }
      }
 
-     IEnumerator SpawnIntervalDecrease()
+     IEnumerator SpawnIntervalDecrease() //Over timer increase the spawn rate
      {
           yield return new WaitForSeconds(30f);
 

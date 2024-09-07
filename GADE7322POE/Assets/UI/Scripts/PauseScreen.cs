@@ -14,7 +14,7 @@ public class PauseScreen : UtkBase
 
     public UnityEvent onContinueGame;
     
-    protected override void Start()
+    protected override void Start() //Setup pause UI
     {
         base.Start();
 
@@ -23,6 +23,7 @@ public class PauseScreen : UtkBase
         _mReturnToMenuBtn = rootElement.Q<Button>("ReturnToMenuBtn");
         _mQuitGameBtn = rootElement.Q<Button>("QuitBtn");
 
+        //Handle button presses
         _mContinueBtn.clicked += () =>
         {
             Time.timeScale = 1;
@@ -35,7 +36,6 @@ public class PauseScreen : UtkBase
             Time.timeScale = 1;
             SoundManager.Instance.PlaySound(SoundType.Button);
             SceneManager.LoadScene(2);
-            //SceneLoaderScript.Instance.RestartGame();
         };
 
         _mReturnToMenuBtn.clicked += () =>
@@ -45,8 +45,8 @@ public class PauseScreen : UtkBase
             SceneManager.LoadScene(0);
         };
 
+        //Quit game press
         _mQuitGameBtn.clicked += Application.Quit;
         
-
     }
 }

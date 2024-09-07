@@ -18,6 +18,10 @@ public class CurrencyData : ScriptableObject
     {
         Currency = 0;
     }
+    /// <summary>
+    /// Update currency amount
+    /// </summary>
+    /// <param name="amount"></param>
     
     public void UpdateCurrency(int amount)
     {
@@ -25,6 +29,10 @@ public class CurrencyData : ScriptableObject
         onCurrencyChanged?.Invoke(Currency);
     }
 
+    /// <summary>
+    /// Handles purchasing of the cannon
+    /// </summary>
+    /// <returns></returns>
     public bool CanPurchaseCannon()
     {
         var cardCost = defenders.FirstOrDefault(defenderCard => defenderCard.DefenderType == EDefender.Cannon).Cost;

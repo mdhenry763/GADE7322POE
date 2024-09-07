@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager Instance;
+    public static SoundManager Instance; //Handle Health
 
     public AudioSource audioSource;
 
@@ -26,6 +26,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound(SoundType type)
     {
+        //Player selected sound, get from type
         var soundObj = soundObjects.FirstOrDefault((sound) => sound.type == type);
         
         if(soundObj.clip == null) return;

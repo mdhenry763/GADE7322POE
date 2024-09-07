@@ -23,6 +23,7 @@ public class DDefence : MonoBehaviour
         _timer = shootTimer;
     }
 
+    //Add enemy and remove enemy
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("enemyBug")) return;
@@ -66,7 +67,7 @@ public class DDefence : MonoBehaviour
         Shoot(direction);
     }
 
-    void Shoot(Vector3 direction)
+    void Shoot(Vector3 direction) //Shoot enemy
     {
         if (!_canShoot) return;
         
@@ -79,7 +80,7 @@ public class DDefence : MonoBehaviour
         _canShoot = false;
     }
     
-    private Vector3 GetClosestEnemyDirection()
+    private Vector3 GetClosestEnemyDirection() //Returns closest distance
     {
         Vector3 closestPosition = Vector3.positiveInfinity;
         float minDistance = float.MaxValue;
@@ -95,6 +96,7 @@ public class DDefence : MonoBehaviour
             
             var distance = Vector3.Distance(cannon.position, enemy.transform.position);
 
+            //if shorter ditance set closestPosition to distance
             if (distance < minDistance)
             {
                 minDistance = distance;
