@@ -20,8 +20,8 @@ public class CardUIHandler : UtkBase
 
     public UnityEvent onCannonSelected;
     public UnityEvent onPaused;
-    
-    
+
+
     protected override void Start()
     {
         base.Start();
@@ -68,7 +68,10 @@ public class CardUIHandler : UtkBase
     private Coroutine _coinCoroutine;
     private void HandleCurrencyChange(int value) // Change coin label on UI 
     {
-        if(_coinCoroutine != null) StopCoroutine(_coinCoroutine);
+        if (_coinCoroutine != null)
+        {
+            StopCoroutine(_coinCoroutine);
+        }
         _coinCoroutine = StartCoroutine(CoinHide());
         _mCurrencyLbl.text = value.ToString();
     }
@@ -112,5 +115,7 @@ public class CardUIHandler : UtkBase
     private void OnDestroy()
     {
         _coinCoroutine = null;
+        currencyData.onCurrencyChanged -= HandleCurrencyChange;
+        Health.onHealthDamaged -= UpdateTowerHealthBar;
     }
 }

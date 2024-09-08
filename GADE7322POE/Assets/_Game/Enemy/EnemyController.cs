@@ -108,9 +108,6 @@ public class EnemyController : MonoBehaviour //Script for handling enemy behavio
 
         //Get defender position
         var defender = defenders.Peek();
-        var defenderPos = defender.transform.position;
-        defenderPos.y = 0.5f;
-        
         if (defender == null)
         {
             //Reset animations to walking
@@ -120,6 +117,9 @@ public class EnemyController : MonoBehaviour //Script for handling enemy behavio
             defenders.Dequeue();
             return;
         }
+        
+        var defenderPos = defender.transform.position;
+        defenderPos.y = 0.5f;
 
         if (!attacking)
         {
@@ -139,17 +139,15 @@ public class EnemyController : MonoBehaviour //Script for handling enemy behavio
         
         //Attack timer
         timer -= Time.deltaTime;
+        Vector3 offset = new Vector3(0, 0.5f, 0);
 
         if (timer <= 0)
         {
-            if (Physics.Raycast(transform.position, transform.forward, out var hit, 2, defenderLayer))
-            {
-                if(hit.transform.TryGetComponent<IDamageable>(out var damageable))
-                {
-                    //Attack Damageable 
-                    damageable.Damage(attackDamage);
-                }
-            }
+            if(defender == null) return;
+
+            var damage = defender.GetComponent<DDefence>().GetParentObject();
+           
+            if(distance <= 2) damage.Damage(attackDamage);
 
             timer = attackTimer;
         }

@@ -25,38 +25,13 @@ public class PathGeneration : MonoBehaviour
         spline = GetComponent<SplineContainer>().Spline;
     }
 
+    //Generate spline for path
     public void CreatePath(List<Vector3> positions)
     {
         SetupSpline(positions);
     }
     
-    public void GeneratePaths()
-    {
-        spline.Add(enemyKnot);
-        spline.Insert(1, towerKnot);
-        //_endPosition = data.TowerPosition;
-        //GetObjectPositions(data.StartPositions[0]);
-        
-    }
-
-    void GetObjectPositions(Vector3 startPos)
-    {
-        enemyKnot.Position = startPos;
-        towerKnot.Position = _endPosition;
-
-        enemyKnot.TangentOut = new float3(0f, 0, 1f);
-        towerKnot.TangentIn = new float3(0f, 0, -1f);
-        
-        spline.SetKnot(0, enemyKnot);
-        spline.SetKnot(1, towerKnot);
-        
-        spline.SetTangentMode(0, mode: TangentMode.Linear, BezierTangent.Out);
-        spline.SetTangentMode(1, mode: TangentMode.Linear, BezierTangent.In);
-
-        GetComponent<SplineInstantiate>().enabled = true;
-    }
-    
-    
+    //Spawn splines
     private void SetupSpline(List<Vector3> pathPositions)
     {
         spline.Clear();
@@ -82,6 +57,7 @@ public class PathGeneration : MonoBehaviour
             spline.SetTangentMode(i, TangentMode.Linear);
         }
 
+        //Spawn the splines using the spline instantiation
         GetComponent<SplineInstantiate>().enabled = true;
     }
 }

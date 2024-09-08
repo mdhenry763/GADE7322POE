@@ -9,6 +9,7 @@ public class DDefence : MonoBehaviour
     public Transform cannon;
     public Transform shootPos;
     public GameObject cannonBall;
+    public GameObject parent;
 
     [Header("Cannon Shoot Settings")] 
     public float shootTimer;
@@ -105,6 +106,11 @@ public class DDefence : MonoBehaviour
         }
         
         return closestPosition - cannon.position;
+    }
+
+    public IDamageable GetParentObject()
+    {
+        return parent.GetComponent<IDamageable>();
     }
     
 }

@@ -21,6 +21,7 @@ namespace PerlinNoise
         private void Start()
         {
             _renderer = GetComponent<MeshRenderer>();
+            //random positions
             offsetX = Random.Range(0, 999999);
             offsetY = Random.Range(0, 999999);
             
@@ -40,6 +41,7 @@ namespace PerlinNoise
             }
         }
 
+        //Testing to see perlin noise on a texture
         Texture2D GeneratePerlinNoiseTexture()
         {
             Texture2D texture = new Texture2D(width, height);
@@ -58,8 +60,10 @@ namespace PerlinNoise
             return texture;
         }
 
+        //Generate the height using perlin noise
         public float GenerateHeight(int x, int y)
         {
+            //Offset is used to get a random area on the generated texture
             float xCoord = (float)x / width * scale + offsetX;
             float yCoord = (float)y / height * scale + offsetY;
 

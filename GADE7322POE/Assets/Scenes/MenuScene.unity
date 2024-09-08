@@ -248,10 +248,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startHidden: 1
-  References: 'Refencing for GADE7322:
-
-
-    ForestAsset: The towers and goblins'
+  References: "AurynSky. 2019. Forest \u2013 Low Poly Toon Battle Arean / Tower Defence
+    Pack. [Unity Asset Store]. Available at: https://assetstore.unity.com/packages/3d/environments/forest-low-poly-toon-battle-arena-tower-defense-pack-100080
+    (Accessed 22 August 2024).\r\nVSSQUAD. 2020. Goblin & Cannon. [Unity Asset Store].
+    Available at: https://assetstore.unity.com/packages/3d/environments/fantasy/goblin-cannon-145437
+    (Accessed 22 August 2024).\r\nUnity Technologies. 2024. Particle pack. [Unity
+    Asset Store]. Available at: https://assetstore.unity.com/packages/vfx/particles/particle-pack-127325
+    (Accessed 01 September 2024).\r\nFigma. 2024. The Collaborative Interface Design
+    Tool. Version 124.3.2. [App]. Available at: https://www.figma.com/files/team/1333714251250703780/recents-and-sharing/recently-viewed?fuid=1333714249444945028
+    (Accessed 22 August 2024). \r\n\r\nMacleod. 2016. Lord of the land. [Sound recording].
+    Available at: https://www.youtube.com/watch?v=hQPyNe67Oi4&list=PLaN_s1bC7W5yPLePgLm03PCM0J7R_Wx9K
+    (Accessed 01 September 2024). \r\n\r\nKenney. no date. Impact heavy 0. [Sound
+    recording]. Available at: https://kenney.nl/assets/impact-sounds (Accessed 01
+    September 2024). \r\n\r\nPixabay. 2024. Mouse Click sound. [Sound recording].
+    Available at: https://pixabay.com/sound-effects/mouse-click-sound-233951/ (Accessed
+    01 September 2024). \r\n\r\nPixabay. 2023. Clicks for game menu. [Sound recording].
+    Available at: https://pixabay.com/sound-effects/click-for-game-menu-131903/ (Accessed
+    01 September 2024). \r\n\r\nPixabay. 2022. damage. [Sound recording]. Available
+    at: https://pixabay.com/sound-effects/damage-40114// (Accessed 01 September 2024).
+    \r\n\r\nPixabay. 2022. Cannon shot. [Sound recording]. Available at: https://pixabay.com/sound-effects/cannon-shot-14799/
+    (Accessed 01 September 2024). \r\n\r\nPixabay. 2024. 90s Game UI 6. [Sound recording].
+    Available at: https://pixabay.com/sound-effects/90s-game-ui-6-185099/ (Accessed
+    01 September 2024). \r\n"
   onShowRef:
     m_PersistentCalls:
       m_Calls:

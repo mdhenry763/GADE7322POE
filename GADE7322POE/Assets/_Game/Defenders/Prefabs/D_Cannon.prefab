@@ -153,7 +153,8 @@ MonoBehaviour:
   shootPos: {fileID: 8209198684737736892}
   cannonBall: {fileID: 1940186658668467378, guid: a46c9109ea22a214d812261f04397298,
     type: 3}
-  shootTimer: 200
+  parent: {fileID: 4200502001127775512}
+  shootTimer: 3
 --- !u!1 &2303422026163076775
 GameObject:
   m_ObjectHideFlags: 0

@@ -185,6 +185,7 @@ MonoBehaviour:
   shootPos: {fileID: 5836526986838827265}
   cannonBall: {fileID: 1940186658668467378, guid: a46c9109ea22a214d812261f04397298,
     type: 3}
+  parent: {fileID: 3030493520677072880}
   shootTimer: 3
 --- !u!1 &3030493520677072880
 GameObject:
@@ -694,6 +695,7 @@ MonoBehaviour:
   shootPos: {fileID: 1005904483878953159}
   cannonBall: {fileID: 1940186658668467378, guid: a46c9109ea22a214d812261f04397298,
     type: 3}
+  parent: {fileID: 3030493520677072880}
   shootTimer: 3
 --- !u!1 &7737641084903510867
 GameObject:

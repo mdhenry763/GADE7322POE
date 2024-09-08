@@ -26,6 +26,7 @@ namespace ProGen
             GenerateGrid();
         }
 
+        //Generate grid based on input
         void GenerateGrid()
         {
             for (int x = 0; x < gridSizeX; x++)
@@ -33,6 +34,7 @@ namespace ProGen
                 for (int z = 0; z < gridSizeZ; z++)
                 {
                     var position = GeneratePosition(x, z);
+                    //Generate piece by piece instead of creating mesh
                     Instantiate(worldPiece, position, Quaternion.identity, transform);
                 }
             }
@@ -44,6 +46,7 @@ namespace ProGen
             return pos;
         }
 
+        //Perlin noise for height
         private float GenerateNoise(int x, int z, float detailScale)
         {
             float xNoise = (x + transform.position.x) / detailScale;
