@@ -1932,11 +1932,10 @@ MonoBehaviour:
     Cost: 100
     Prefab: {fileID: 5140022167974113465, guid: e542c7a8193725d46a8c26357e568f45,
       type: 3}
-  catapult:
-    DefenderType: 3
-    Cost: 150
-    Prefab: {fileID: 5448231919629619856, guid: c3e4626b509d2de4fba179ba0aa65f1a,
-      type: 3}
+  crossbow:
+    DefenderType: 0
+    Cost: 0
+    Prefab: {fileID: 0}
   onCannonSelected:
     m_PersistentCalls:
       m_Calls:
@@ -2405,6 +2404,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: XbowFbx
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448231919629619856, guid: c3e4626b509d2de4fba179ba0aa65f1a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2493098765034915539, guid: c3e4626b509d2de4fba179ba0aa65f1a, type: 3}
