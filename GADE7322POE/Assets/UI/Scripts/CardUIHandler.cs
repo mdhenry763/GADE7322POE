@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class CardUIHandler : UtkBase
 {
     public CurrencyData currencyData;
+
+    public DefenderCard cannon;
+    public DefenderCard archer;
+    public DefenderCard crossbow;
 
     private VisualElement _mTowerHealthBar;
     
@@ -17,9 +22,15 @@ public class CardUIHandler : UtkBase
 
     private Button _mPauseBtn;
     private Button _mCannonBtn;
+    private Button _mArcherBtn;
+    private Button _mCrossbowBtn;
+    
+    private int _paused = 0;
 
     public UnityEvent onCannonSelected;
     public UnityEvent onPaused;
+
+    public static event Action<DefenderCard> OnCardPicked;
 
 
     protected override void Start()
@@ -34,11 +45,19 @@ public class CardUIHandler : UtkBase
         _mCoinLbl = rootElement.Q<Label>("CoinLbl");
         _mCurrencyLbl.text = "50";
         
+        //Card buttons
         _mCannonBtn = rootElement.Q<Button>("CannonBtn");
+        _mArcherBtn = rootElement.Q<Button>("ArcherBtn");
+        _mCrossbowBtn = rootElement.Q<Button>("CrossbowBtn");
+        
         _mPauseBtn = rootElement.Q<Button>("PauseBtn");
+        
         //Handle onClick events
         _mPauseBtn.clicked += HandlePauseLogic;
-        _mCannonBtn.clicked += HandleCannonLogic;
+        
+        _mCannonBtn.clicked += HandleCannonPicked;
+        _mArcherBtn.clicked += HandleArcherPicked;
+        _mCrossbowBtn.clicked += HandleCrossbowPicked;
         
         _mPlaceLbl = rootElement.Q<Label>("PlaceLabel");
         
@@ -48,7 +67,21 @@ public class CardUIHandler : UtkBase
 
     }
 
-    private int _paused = 0;
+    private void HandleCannonPicked()
+    {
+        HandleCardPicked(cannon);
+    }
+
+    private void HandleArcherPicked()
+    {
+        HandleCardPicked(archer);
+    }
+
+    private void HandleCrossbowPicked()
+    {
+        HandleCardPicked(crossbow);
+    }
+    
     void HandlePauseLogic()
     {
         SoundManager.Instance.PlaySound(SoundType.Button);
@@ -83,14 +116,15 @@ public class CardUIHandler : UtkBase
         _mCoinLbl.AddToClassList("coin_hide");
     }
     
-    private void HandleCannonLogic() //handle cannon clicked
+    private void HandleCardPicked(DefenderCard card) //handle cannon clicked
     {
         SoundManager.Instance.PlaySound(SoundType.Button);
         _mPlaceLbl.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
-        if (currencyData.CanPurchaseCannon())
+        if (currencyData.CanPurchaseDefender(card))
         {
-            Debug.Log("Picked Cannon");
+            Debug.Log($"Picked {card.DefenderType}");
             onCannonSelected?.Invoke();
+            OnCardPicked?.Invoke(card);
         }
         else
         {

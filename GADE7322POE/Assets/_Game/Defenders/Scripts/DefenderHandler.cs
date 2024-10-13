@@ -29,11 +29,18 @@ public class DefenderHandler : MonoBehaviour
         _controls.Enable();
         
         _controls.Player.Fire.performed += MouseClick;
+        CardUIHandler.OnCardPicked += HandleCardPicked;
+    }
+
+    private void HandleCardPicked(DefenderCard card)
+    {
+        defender = card.Prefab;
+        canPlace = true;
     }
 
     public void CanPlaceDefender()
     {
-        canPlace = true;
+        //canPlace = true;
     }
 
     /// <summary>
@@ -70,9 +77,6 @@ public class DefenderHandler : MonoBehaviour
     {
         _controls.Disable();
     }
-
-    void Update()
-    {
-        
-    }
+    
 }
+

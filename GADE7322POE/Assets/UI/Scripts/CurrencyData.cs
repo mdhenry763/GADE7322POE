@@ -8,9 +8,6 @@ public class CurrencyData : ScriptableObject
 {
     [Header("Currency")]
     public int Currency;
-
-    [Header("Defender Costs")] 
-    public List<DefenderCard> defenders;
     
     public event Action<int> onCurrencyChanged;
 
@@ -33,9 +30,9 @@ public class CurrencyData : ScriptableObject
     /// Handles purchasing of the cannon
     /// </summary>
     /// <returns></returns>
-    public bool CanPurchaseCannon()
+    public bool CanPurchaseDefender(DefenderCard card)
     {
-        var cardCost = defenders.FirstOrDefault(defenderCard => defenderCard.DefenderType == EDefender.Cannon).Cost;
+        var cardCost = card.Cost;
         var canPurchase = Currency >= cardCost;
         return canPurchase;
     }
@@ -45,6 +42,8 @@ public enum EDefender
 {
     Cannon,
     Archer,
+    Catapult,
+    Xbow
 }
 
 [Serializable]
@@ -52,4 +51,5 @@ public struct DefenderCard
 {
     public EDefender DefenderType;
     public int Cost;
+    public GameObject Prefab;
 }

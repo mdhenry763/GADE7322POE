@@ -15,6 +15,8 @@ public class DDefence : MonoBehaviour
     public float shootTimer;
     private bool _canShoot;
     private float _timer;
+
+    public bool oppositeDirection;
     
     private List<GameObject> enemies = new List<GameObject>();
 
@@ -60,7 +62,10 @@ public class DDefence : MonoBehaviour
         var direction = GetClosestEnemyDirection();
     
         // Calculate the target rotation
-        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        Quaternion targetRotation = oppositeDirection
+            ? Quaternion.LookRotation(direction.normalized)
+            : Quaternion.LookRotation(-direction.normalized);
+        
     
         // Smoothly rotate the cannon towards the target
         cannon.rotation = Quaternion.Slerp(cannon.rotation, targetRotation, Time.deltaTime * 5);
@@ -73,11 +78,14 @@ public class DDefence : MonoBehaviour
         if (!_canShoot) return;
         
         var spawnedBall = Instantiate(cannonBall, shootPos.position, Quaternion.identity);
+        spawnedBall.transform.forward = -direction;
         if (spawnedBall.TryGetComponent<CannonBallLogic>(out var cannonBallLogic))
         {
-            cannonBallLogic.InitMotion(enemies[0].transform.position - cannon.position);
-            SoundManager.Instance.PlaySound(SoundType.CannonFire);
+            cannonBallLogic.InitMotion(direction);
+            //SoundManager.Instance.PlaySound(SoundType.CannonFire);
         }
+
+        
         _canShoot = false;
     }
     
@@ -97,7 +105,7 @@ public class DDefence : MonoBehaviour
             
             var distance = Vector3.Distance(cannon.position, enemy.transform.position);
 
-            //if shorter ditance set closestPosition to distance
+            //if shorter distance set closestPosition to distance
             if (distance < minDistance)
             {
                 minDistance = distance;
