@@ -1099,6 +1099,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6463161742790953638}
   - component: {fileID: 5634330294631444225}
+  - component: {fileID: 7919764950165278188}
+  - component: {fileID: 573467867717845183}
   m_Layer: 0
   m_Name: RedDragon
   m_TagString: Untagged
@@ -1116,8 +1118,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1900103896601718912}
   - {fileID: 813756179757447891}
@@ -1144,6 +1146,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7919764950165278188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967278395664311454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2984d23a20991af4893a1ade02fe8d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackTimer: 3
+  attackDistance: 2
+  aggroDistance: 10
+  attackDamage: 3
+  speed: 1
+  animator: {fileID: 5634330294631444225}
+  walkAnim: Fly Forward
+  attackAnim: Fly Fireball Shoot 0
+--- !u!114 &573467867717845183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967278395664311454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 769185871c8a165408ed24b8fb67c1f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onShoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6111423972154026436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,7 +1272,7 @@ Transform:
   m_GameObject: {fileID: 6468900425769984269}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -226.65565, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []

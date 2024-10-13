@@ -8,8 +8,9 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour //Script for handling enemy behaviour
 {
     public float attackTimer = 3f;
-    public float attackDistance = 3f;
+    public float attackDistance = 2f;
     public int attackDamage = 10;
+    public float speed = 1;
     public LayerMask defenderLayer;
     
     private Queue<Vector3> pathQueue;
@@ -19,7 +20,6 @@ public class EnemyController : MonoBehaviour //Script for handling enemy behavio
     private Vector3 currentPos;
     private Vector3 nextPos;
     
-    private float speed;
     
     private NavMeshAgent agent;
     private Animator _animator;
@@ -147,7 +147,7 @@ public class EnemyController : MonoBehaviour //Script for handling enemy behavio
 
             var damage = defender.GetComponent<DDefence>().GetParentObject();
            
-            if(distance <= 2) damage.Damage(attackDamage);
+            if(distance <= attackDistance) damage.Damage(attackDamage);
 
             timer = attackTimer;
         }

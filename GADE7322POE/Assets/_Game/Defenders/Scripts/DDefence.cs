@@ -20,6 +20,16 @@ public class DDefence : MonoBehaviour
     
     private List<GameObject> enemies = new List<GameObject>();
 
+    private void OnEnable()
+    {
+        DefendersController.AddDefender(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        DefendersController.RemoveDefender(gameObject);
+    }
+
     private void Start()
     {
         _canShoot = false;
@@ -120,5 +130,10 @@ public class DDefence : MonoBehaviour
     {
         return parent.GetComponent<IDamageable>();
     }
-    
+
+    private void OnDestroy()
+    {
+        if(gameObject == null) return;
+        DefendersController.RemoveDefender(gameObject);
+    }
 }
