@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -6,11 +7,13 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Splines;
 using Quaternion = UnityEngine.Quaternion;
+using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class EnemySpawner : MonoBehaviour
 {
      [Header("Goblin Spawn")] 
+     public EnemyData[] enemies;
      public GameObject goblinPrefab;
      public float spawnInterval = 5;
      public float spawnIntervalDecreaseOverTime = 1f;
@@ -49,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
 
                //Spawn enemy on random path
                var enemyObj = Instantiate(goblinPrefab, this.transform);
-               var enemyController = enemyObj.GetComponent<EnemyController>();
+               var enemyController = enemyObj.GetComponent<GeneralEnemyController>();
                //Initialise enemy
                enemyController.InitEnemy(path, offset, goblinSpeed);
                
@@ -66,8 +69,18 @@ public class EnemySpawner : MonoBehaviour
                spawnInterval--;
           }
      }
+}
 
+[Serializable]
+public struct EnemyData
+{
+     public EEnemy EnemyType;
+     public GameObject Prefab;
+}
 
-
-
+public enum EEnemy
+{
+     Goblin,
+     Dragon,
+     Golem,
 }
