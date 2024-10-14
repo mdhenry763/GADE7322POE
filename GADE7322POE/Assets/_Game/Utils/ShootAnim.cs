@@ -11,4 +11,11 @@ public class ShootAnim : MonoBehaviour
     {
         onShoot?.Invoke();
     }
+
+    public void ShootObject()
+    {
+        
+    }
+
+    
 }

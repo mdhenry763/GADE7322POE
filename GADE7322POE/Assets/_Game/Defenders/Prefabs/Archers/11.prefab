@@ -602,7 +602,8 @@ MonoBehaviour:
   cannonBall: {fileID: 1940186658668467378, guid: 30f3228ec99c41346a5e17c7a4609941,
     type: 3}
   parent: {fileID: 3480155897185175300}
-  shootTimer: 0.5
+  shootTimer: 3
+  oppositeDirection: 0
 --- !u!135 &1080212165249662243
 SphereCollider:
   m_ObjectHideFlags: 0

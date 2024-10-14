@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7343529253258339183}
   m_Layer: 0
   m_Name: Zone1
-  m_TagString: Defender
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
     type: 3}
   parent: {fileID: 4200502001127775512}
   shootTimer: 3
+  oppositeDirection: 1
 --- !u!1 &3354845988690624866
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +291,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -312,6 +313,8 @@ MonoBehaviour:
   damagePS: {fileID: 3820998116522425073}
   damageType: 2
   parentObject: {fileID: 4200502001127775512}
+  animator: {fileID: 0}
+  deathAnim: 
   onDamaged:
     m_PersistentCalls:
       m_Calls:

@@ -15,15 +15,21 @@ public class CardUIHandler : UtkBase
     public DefenderCard crossbow;
 
     private VisualElement _mTowerHealthBar;
+    private VisualElement _mRoundText;
     
     private Label _mPlaceLbl;
     private Label _mCurrencyLbl;
     private Label _mCoinLbl;
+    private Label _mWaveLbl;
+    private Label _mRoundLbl;
+    private Label _mNewLbl;
 
     private Button _mPauseBtn;
     private Button _mCannonBtn;
     private Button _mArcherBtn;
     private Button _mCrossbowBtn;
+
+    private Coroutine roundTextShow;
     
     private int _paused = 0;
 
@@ -39,11 +45,16 @@ public class CardUIHandler : UtkBase
         
         //Setup Buttons and Labels for UI control
         _mTowerHealthBar = rootElement.Q<VisualElement>("HealthBar");
+        _mRoundText = rootElement.Q<VisualElement>("RoundText");
         _mTowerHealthBar.style.width = new Length(100, LengthUnit.Percent);
         
         _mCurrencyLbl = rootElement.Q<Label>("CurrencyLbl");
         _mCoinLbl = rootElement.Q<Label>("CoinLbl");
         _mCurrencyLbl.text = "50";
+
+        _mWaveLbl = rootElement.Q<Label>("WaveLabel");
+        _mRoundLbl = rootElement.Q<Label>("RoundLabel");
+        _mNewLbl = rootElement.Q<Label>("NewLbl");
         
         //Card buttons
         _mCannonBtn = rootElement.Q<Button>("CannonBtn");
@@ -65,6 +76,49 @@ public class CardUIHandler : UtkBase
         currencyData.onCurrencyChanged += HandleCurrencyChange;
         Health.onHealthDamaged += UpdateTowerHealthBar;
 
+    }
+
+    private void OnEnable()
+    {
+        EnemyWaveController.OnWaveIncreased += HandleWaveIncrease;
+        EnemyWaveController.OnRoundIncreased += HandleRoundIncrease;
+    }
+
+    private void OnDisable()
+    {
+        EnemyWaveController.OnWaveIncreased -= HandleWaveIncrease;
+        EnemyWaveController.OnRoundIncreased -= HandleRoundIncrease;
+    }
+
+    private void HandleWaveIncrease(int wave)
+    {
+        
+        _mNewLbl.text = "New wave";
+        _mRoundText.RemoveFromClassList("coin_hide");
+        _mWaveLbl.text = $"Wave: {wave}/5";
+        if (roundTextShow != null)
+        {
+            StopCoroutine(roundTextShow);
+        }
+        roundTextShow = StartCoroutine(RoundTextShow());
+    }
+
+    IEnumerator RoundTextShow()
+    {
+        yield return new WaitForSeconds(2f);
+        _mRoundText.AddToClassList("coin_hide");
+    }
+    
+    private void HandleRoundIncrease(int round)
+    {
+        _mRoundLbl.text = $"Round: {round}";
+        _mNewLbl.text = "New round";
+        _mRoundText.RemoveFromClassList("coin_hide");
+        if (roundTextShow != null)
+        {
+            StopCoroutine(roundTextShow);
+        }
+        roundTextShow = StartCoroutine(RoundTextShow());
     }
 
     private void HandleCannonPicked()

@@ -16,7 +16,7 @@ public class CurrencyManager : MonoBehaviour
     private void Start() // Start coroutine for updating currency
     {
         currencyData.ResetCurrency();
-        currencyData.UpdateCurrency(50);
+        currencyData.UpdateCurrency(startCurrency);
         currencyCoroutine = StartCoroutine(SetPlayerCurrency());
     }
 

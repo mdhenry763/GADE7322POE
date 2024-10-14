@@ -37,4 +37,9 @@ public static class DefendersController
         return closestDefender;
 
     }
+
+    public static void ClearDefenders()
+    {
+        allDefenders.Clear();
+    }
 }

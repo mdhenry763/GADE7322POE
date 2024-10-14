@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Health : MonoBehaviour, IDamageable //Handle all game health
 {
@@ -10,24 +11,39 @@ public class Health : MonoBehaviour, IDamageable //Handle all game health
     public ParticleSystem damagePS;
     public DamageType damageType;
     public GameObject parentObject;
+    
+    [Header("Animation")]
+    public Animator animator;
+    public string deathAnim;
 
     private int _currentHealth;
-    private Animator _animator;
+    private int _deathHashCode;
     
+    [Space]
     public UnityEvent<float> onDamaged;
     public static event Action<float, DamageType> onHealthDamaged;
     public static event Action onGameEnd;
+    public static event Action OnEnemyDied;
 
     private void Start() //Set health and death anim for enemies
     {
         _currentHealth = MaxHealth;
-        _animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        _deathHashCode = Animator.StringToHash(deathAnim);
+
+        if (damageType == DamageType.Tower)
+        {
+            DefendersController.AddDefender(gameObject);
+        }
     }
 
     public void Damage(int amount) //Handle entity damage
     {
         _currentHealth -= amount;
-        damagePS.Play(); //Play damage effect if there is one
+        if (damagePS != null)
+        {
+            damagePS.Play(); //Play damage effect if there is one
+        }
         onDamaged?.Invoke(GetHealthFillAmount());
         onHealthDamaged?.Invoke((float)_currentHealth / ((float)MaxHealth/ 100f), damageType);
 
@@ -39,23 +55,34 @@ public class Health : MonoBehaviour, IDamageable //Handle all game health
 
     IEnumerator DeathAnim() //Play Death anim then destroy object
     {
-        if (_animator)
+        if (animator)
         {
-            _animator.SetBool("RUN", false);
-            _animator.SetBool("Attack", false);
-            _animator.SetBool("Death", true);
+            animator.CrossFade(_deathHashCode, 0.1f);
             //Play death sound
             SoundManager.Instance.PlaySound(SoundType.EnemyKilled);
             yield return new WaitForSeconds(2f);
         }
 
         yield return new WaitForSeconds(0.25f);
+        if (damageType is DamageType.Defender or DamageType.Tower)
+        {
+            DefendersController.RemoveDefender(gameObject);
+        }
         Destroy(parentObject);
     }
     
     public void Death() //Death after health = 0
     {
-        if(damageType == DamageType.Tower) onGameEnd?.Invoke();
+        switch (damageType)
+        {
+            case DamageType.Tower:
+                onGameEnd?.Invoke();
+                break;
+            case DamageType.Goblin:
+                OnEnemyDied?.Invoke();
+                break;
+        }
+
         StartCoroutine(DeathAnim());
     }
 

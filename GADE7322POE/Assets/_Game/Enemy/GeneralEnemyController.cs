@@ -14,9 +14,13 @@ public class GeneralEnemyController : MonoBehaviour
 
     [Header("Animation Settings")] 
     public Animator animator;
-
     public string walkAnim;
     public string attackAnim;
+    
+    [Header("Shoot Settings")]
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private float force = 500;
 
     private int walkAnimHash = 0;
     private int attackAnimHash = 0;
@@ -117,12 +121,13 @@ public class GeneralEnemyController : MonoBehaviour
     private void AttackDefender(GameObject defender) //Attack defender obj
     {
         var defenderPos = defender.transform.position;
+        defenderPos.y = 0.5f;
         
         var distance = Vector3.Distance(transform.position, defenderPos);
         //Check if player is in range to attack
         if (distance > attackDistance)
         {
-            transform.position = Vector3.Lerp(transform.position, defenderPos, Time.deltaTime * speed * 1.1f);
+            transform.position = Vector3.Lerp(transform.position, defenderPos, Time.deltaTime * speed);
             var direction = defenderPos - transform.position;
             transform.rotation = Quaternion.LookRotation(direction);
         }
@@ -134,16 +139,16 @@ public class GeneralEnemyController : MonoBehaviour
                 _isAttacking = true;
             }
             
-            timer -= Time.deltaTime;
-
-            if (!(timer <= 0)) return;
-            if(defender == null) return;
-
-            var damage = defender.GetComponent<DDefence>().GetParentObject();
-           
-            if(distance <= attackDistance) damage.Damage(attackDamage);
-
-            timer = attackTimer;
+            // timer -= Time.deltaTime;
+            //
+            // if (!(timer <= 0)) return;
+            // if(defender == null) return;
+            //
+            // var damage = defender.GetComponent<DDefence>().GetParentObject();
+            //
+            // if(distance <= attackDistance) damage.Damage(attackDamage);
+            //
+            // timer = attackTimer;
         }
     }
 
@@ -151,9 +156,32 @@ public class GeneralEnemyController : MonoBehaviour
     {
         var defender = DefendersController.GetClosestDefender(transform);
         if (defender == null) return;
-        
-        var damage = defender.GetComponent<DDefence>().GetParentObject();
+
+        var damage = defender.GetComponent<IDamageable>();
+        if(damage == null) return;
         damage.Damage(attackDamage);
 
+    }
+
+    public void Shoot()
+    {
+        var defender = DefendersController.GetClosestDefender(transform);
+        if (defender == null) return;
+
+        var fireball = Instantiate(projectile, shootPoint.position, Quaternion.identity);
+        var direction = defender.transform.position - fireball.transform.position;
+        fireball.GetComponent<DragonFireball>().InitializeFireball(direction.normalized);
+        
+        StartCoroutine(DestroyAfterSeconds(fireball));
+    }
+    
+    IEnumerator DestroyAfterSeconds(GameObject spawnedObj)
+    {
+        yield return new WaitForSeconds(3f);
+        if (spawnedObj != null)
+        {
+            Destroy(spawnedObj);
+        }
+        
     }
 }

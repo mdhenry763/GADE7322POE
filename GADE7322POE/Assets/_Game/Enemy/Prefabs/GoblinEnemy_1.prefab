@@ -622,7 +622,6 @@ GameObject:
   - component: {fileID: 3060060692328776576}
   - component: {fileID: 7140953402135170748}
   - component: {fileID: 9017445984860738559}
-  - component: {fileID: 7623199610716368771}
   m_Layer: 0
   m_Name: GoblinEnemy_1
   m_TagString: enemyBug
@@ -732,13 +731,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackTimer: 3
-  attackDistance: 2
-  aggroDistance: 10
+  attackDistance: 0.8
+  aggroDistance: 3
   attackDamage: 3
   speed: 1
-  animator: {fileID: 0}
+  animator: {fileID: 2915399341618235028}
   walkAnim: Goblin_run
   attackAnim: Goblin_attack
+  projectile: {fileID: 0}
+  shootPoint: {fileID: 0}
 --- !u!114 &9017445984860738559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,6 +756,8 @@ MonoBehaviour:
   damagePS: {fileID: 5174123004212550062}
   damageType: 1
   parentObject: {fileID: 5309941524888538406}
+  animator: {fileID: 2915399341618235028}
+  deathAnim: Death
   onDamaged:
     m_PersistentCalls:
       m_Calls:
@@ -770,31 +773,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!895512359 &7623199610716368771
-AimConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5309941524888538406}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_AimVector: {x: 0, y: 0, z: 1}
-  m_UpVector: {x: 0, y: 1, z: 0}
-  m_WorldUpVector: {x: 0, y: 1, z: 0}
-  m_WorldUpObject: {fileID: 0}
-  m_UpType: 0
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_Active: 0
-  m_IsLocked: 0
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1
 --- !u!1 &5459281597659996540
 GameObject:
   m_ObjectHideFlags: 0

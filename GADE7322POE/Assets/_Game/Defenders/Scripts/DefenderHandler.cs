@@ -16,6 +16,7 @@ public class DefenderHandler : MonoBehaviour
     private bool canPlace = false;
 
     public UnityEvent onTowerPlaced;
+    private DefenderCard _card;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class DefenderHandler : MonoBehaviour
 
     private void HandleCardPicked(DefenderCard card)
     {
+        _card = card;
         defender = card.Prefab;
         canPlace = true;
     }
@@ -60,7 +62,7 @@ public class DefenderHandler : MonoBehaviour
             
             //Do something
             Debug.Log($"Trying to place on {hit.transform.tag}");
-            currencyData.UpdateCurrency(-50);
+            currencyData.UpdateCurrency(-_card.Cost);
             SoundManager.Instance.PlaySound(SoundType.CannonPlaced);
             SpawnDefender(hit.point);
             canPlace = false;
@@ -70,12 +72,14 @@ public class DefenderHandler : MonoBehaviour
 
     private void SpawnDefender(Vector3 position)
     {
-        Instantiate(defender, position, Quaternion.identity);
+        var spawnedDefender = Instantiate(defender, position, defender.transform.rotation);
+        DefendersController.AddDefender(spawnedDefender);
     }
 
     private void OnDisable()
     {
         _controls.Disable();
+        DefendersController.ClearDefenders();
     }
     
 }

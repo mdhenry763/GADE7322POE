@@ -569,9 +569,11 @@ GameObject:
   - component: {fileID: 6228249309091107867}
   - component: {fileID: 7662258951392949974}
   - component: {fileID: 1660729012934498877}
+  - component: {fileID: 3911806511733994037}
+  - component: {fileID: 745670730597357645}
   m_Layer: 0
   m_Name: Golem
-  m_TagString: Untagged
+  m_TagString: enemyBug
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -628,13 +630,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackTimer: 3
-  attackDistance: 2
-  aggroDistance: 2
-  attackDamage: 7
+  attackDistance: 0.5
+  aggroDistance: 4
+  attackDamage: 30
   speed: 0.5
   animator: {fileID: 6228249309091107867}
   walkAnim: Giant@Walk01 - Forward
   attackAnim: GiantAttack
+  projectile: {fileID: 0}
+  shootPoint: {fileID: 0}
+  force: 500
 --- !u!114 &1660729012934498877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,6 +656,8 @@ MonoBehaviour:
   damagePS: {fileID: 0}
   damageType: 1
   parentObject: {fileID: 2132173157097032443}
+  animator: {fileID: 6228249309091107867}
+  deathAnim: Damage
   onDamaged:
     m_PersistentCalls:
       m_Calls:
@@ -666,6 +673,54 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!54 &3911806511733994037
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132173157097032443}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &745670730597357645
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132173157097032443}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.2
+  m_Center: {x: 0, y: 1.34, z: 0}
 --- !u!1 &2339300483407205194
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178b09777b5944a4b4a3d8e219fa2d11, type: 3}
   m_Name: CurrencyData
   m_EditorClassIdentifier: 
-  Currency: 0
-  defenders:
-  - DefenderType: 0
-    Cost: 50
+  Currency: 146

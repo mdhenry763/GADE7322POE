@@ -22,12 +22,10 @@ public class DDefence : MonoBehaviour
 
     private void OnEnable()
     {
-        DefendersController.AddDefender(gameObject);
     }
 
     private void OnDisable()
     {
-        DefendersController.RemoveDefender(gameObject);
     }
 
     private void Start()
