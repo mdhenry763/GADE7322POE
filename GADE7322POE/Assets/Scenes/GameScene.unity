@@ -2092,9 +2092,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ec10ce3e0e446baa7b8dbaf757a3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goblinChance: 0
+  goblinChance: 100
   dragonChance: 0
-  golemChance: 100
+  golemChance: 0
   waveThreshold: 5
   deathThreshold: 20
 --- !u!1001 &4252194497583457575
