@@ -66,7 +66,7 @@ public class EnemyWaveController : MonoBehaviour
     {
         _mWaveNumber++;
 
-        if (_mWaveNumber % 5 == 0)
+        if (_mWaveNumber % 5 == 0) //Once threshold is met increase round
         {
             _mRound++;
             ChangePercentageChance();
@@ -82,14 +82,14 @@ public class EnemyWaveController : MonoBehaviour
         switch (_mRound)
         {
             case 2:
-                goblinChance = 60;  // Goblin spawn chance decreases
-                dragonChance = 40;  // Dragon spawn chance increases
+                goblinChance = 70;  // Goblin spawn chance decreases
+                dragonChance = 30;  // Dragon spawn chance increases
                 golemChance = 0;    // Golem is not spawned yet
                 break;
             case 3:
-                goblinChance = 40;
+                goblinChance = 50;
                 dragonChance = 40;
-                golemChance = 20;   // Introduce Golem at a low chance
+                golemChance = 10;   // Introduce Golem at a low chance
                 break;
             case 4:
                 goblinChance = 20;
@@ -105,6 +105,11 @@ public class EnemyWaveController : MonoBehaviour
                 goblinChance = 10;
                 dragonChance = 40;
                 golemChance = 50;
+                break;
+            default:
+                goblinChance = Random.Range(0,20);
+                dragonChance = Random.Range(20, 40);
+                golemChance = 100 - goblinChance - dragonChance;
                 break;
         }
     }

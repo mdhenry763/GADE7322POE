@@ -174,6 +174,7 @@ public class CardUIHandler : UtkBase
     {
         SoundManager.Instance.PlaySound(SoundType.Button);
         _mPlaceLbl.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+        _mPlaceLbl.text = $"Place {card.DefenderType} on terrain";
         if (currencyData.CanPurchaseDefender(card))
         {
             Debug.Log($"Picked {card.DefenderType}");

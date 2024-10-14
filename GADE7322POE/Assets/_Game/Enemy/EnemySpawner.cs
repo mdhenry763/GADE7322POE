@@ -37,9 +37,22 @@ public class EnemySpawner : MonoBehaviour
           EnemyWaveController.OnWaveIncreased += HandleWaveIncrease;
      }
 
-     private void HandleWaveIncrease(int obj)
+     private void HandleWaveIncrease(int waveNum)
      {
           _isSpawning = false;
+
+          if (waveNum % 5 == 0)
+          {
+               spawnInterval = 5;
+          }
+          else
+          {
+               if (spawnInterval > 2)
+               {
+                    spawnInterval--;
+               }
+          }
+          
           StartCoroutine(DelaySpawnAfterWave());
      }
 

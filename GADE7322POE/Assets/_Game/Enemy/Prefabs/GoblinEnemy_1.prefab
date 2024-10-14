@@ -733,13 +733,14 @@ MonoBehaviour:
   attackTimer: 3
   attackDistance: 0.8
   aggroDistance: 3
-  attackDamage: 3
+  attackDamage: 5
   speed: 1
   animator: {fileID: 2915399341618235028}
   walkAnim: Goblin_run
   attackAnim: Goblin_attack
   projectile: {fileID: 0}
   shootPoint: {fileID: 0}
+  force: 500
 --- !u!114 &9017445984860738559
 MonoBehaviour:
   m_ObjectHideFlags: 0
