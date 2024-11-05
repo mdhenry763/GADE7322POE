@@ -28,6 +28,7 @@ public class CardUIHandler : UtkBase
     private Button _mCannonBtn;
     private Button _mArcherBtn;
     private Button _mCrossbowBtn;
+    private Button _mUpgradeBtn;
 
     private Coroutine roundTextShow;
     
@@ -37,6 +38,7 @@ public class CardUIHandler : UtkBase
     public UnityEvent onPaused;
 
     public static event Action<DefenderCard> OnCardPicked;
+    public static event Action OnUpgradeCalled;
 
 
     protected override void Start()
@@ -60,6 +62,7 @@ public class CardUIHandler : UtkBase
         _mCannonBtn = rootElement.Q<Button>("CannonBtn");
         _mArcherBtn = rootElement.Q<Button>("ArcherBtn");
         _mCrossbowBtn = rootElement.Q<Button>("CrossbowBtn");
+        _mUpgradeBtn = rootElement.Q<Button>("UpgradeBtn");
         
         _mPauseBtn = rootElement.Q<Button>("PauseBtn");
         
@@ -69,6 +72,7 @@ public class CardUIHandler : UtkBase
         _mCannonBtn.clicked += HandleCannonPicked;
         _mArcherBtn.clicked += HandleArcherPicked;
         _mCrossbowBtn.clicked += HandleCrossbowPicked;
+        _mUpgradeBtn.clicked += HandleUpgradeRequest;
         
         _mPlaceLbl = rootElement.Q<Label>("PlaceLabel");
         
@@ -119,6 +123,16 @@ public class CardUIHandler : UtkBase
             StopCoroutine(roundTextShow);
         }
         roundTextShow = StartCoroutine(RoundTextShow());
+    }
+
+    private void HandleUpgradeRequest()
+    {
+        Debug.Log("Upgrade selected");
+        ShowPlaceText("Click on a defender to upgrade!");
+        //TODO:
+        //Check if player has enough money to upgrade
+        //Upgrade using defender handler
+        OnUpgradeCalled?.Invoke();
     }
 
     private void HandleCannonPicked()
@@ -173,8 +187,7 @@ public class CardUIHandler : UtkBase
     private void HandleCardPicked(DefenderCard card) //handle cannon clicked
     {
         SoundManager.Instance.PlaySound(SoundType.Button);
-        _mPlaceLbl.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
-        _mPlaceLbl.text = $"Place {card.DefenderType} on terrain";
+        ShowPlaceText($"Place {card.DefenderType} on terrain");
         if (currencyData.CanPurchaseDefender(card))
         {
             Debug.Log($"Picked {card.DefenderType}");
@@ -187,6 +200,12 @@ public class CardUIHandler : UtkBase
             StartCoroutine(HideText());
         }
         
+    }
+
+    private void ShowPlaceText(string text)
+    {
+        _mPlaceLbl.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+        _mPlaceLbl.text = text;
     }
 
     IEnumerator HideText()

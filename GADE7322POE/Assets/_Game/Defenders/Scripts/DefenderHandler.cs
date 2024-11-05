@@ -7,13 +7,15 @@ using UnityEngine.InputSystem;
 
 public class DefenderHandler : MonoBehaviour
 {
+    public LayerMask defenderLayer;
     public GameObject defender;
     public CurrencyData currencyData;
     
     private Camera _mainCam;
     private Controls _controls;
 
-    private bool canPlace = false;
+    private bool canPlace;
+    private bool _upgrading;
 
     public UnityEvent onTowerPlaced;
     private DefenderCard _card;
@@ -31,6 +33,7 @@ public class DefenderHandler : MonoBehaviour
         
         _controls.Player.Fire.performed += MouseClick;
         CardUIHandler.OnCardPicked += HandleCardPicked;
+        CardUIHandler.OnUpgradeCalled += HandleUpgradeCalled;
     }
 
     private void HandleCardPicked(DefenderCard card)
@@ -40,10 +43,18 @@ public class DefenderHandler : MonoBehaviour
         canPlace = true;
     }
 
+    private void HandleUpgradeCalled()
+    {
+        Debug.Log("Upgrade Called");
+        _upgrading = true;
+    }
+
     public void CanPlaceDefender()
     {
         //canPlace = true;
     }
+    
+    
 
     /// <summary>
     /// Spawn defender on mouse click after check if can spawn
@@ -51,9 +62,23 @@ public class DefenderHandler : MonoBehaviour
     /// <param name="obj"></param>
     private void MouseClick(InputAction.CallbackContext obj)
     {
-        if(!canPlace) return;
+        //
         Ray mousePos = _mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
+        if (Physics.Raycast(mousePos, out var defenderHit, 100f, defenderLayer))
+        {
+            Debug.Log($"{defenderHit.transform.name} has been hit");
+            if (defenderHit.transform.TryGetComponent<UpgradeDefender>( out var upgrade))
+            {
+                Debug.Log("Upgrade Defender");
+                upgrade.Upgrade();
+            }
+
+            _upgrading = false;
+            
+        }
+
+        if(!canPlace) return;
         if (Physics.Raycast(mousePos, out var hit, 100f))
         {
             Debug.Log(hit.transform.tag + " || " + hit.transform.position);
@@ -79,6 +104,9 @@ public class DefenderHandler : MonoBehaviour
     private void OnDisable()
     {
         _controls.Disable();
+        _controls.Player.Fire.performed -= MouseClick;
+        CardUIHandler.OnCardPicked -= HandleCardPicked;
+        CardUIHandler.OnUpgradeCalled -= HandleUpgradeCalled;
         DefendersController.ClearDefenders();
     }
     

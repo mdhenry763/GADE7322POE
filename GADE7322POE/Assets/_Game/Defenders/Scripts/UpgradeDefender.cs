@@ -16,6 +16,8 @@ public class UpgradeDefender : MonoBehaviour
     public void Upgrade()
     {
         if(_mUpgradeIndex > 2) return;
+        UpgradeHealth();
+        UpgradeAttack();
     }
 
     private void UpgradeHealth()
