@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 3620998386819286154}
   - component: {fileID: 1502730946556017080}
   - component: {fileID: 2420877349807280845}
+  - component: {fileID: 1215792289523633601}
   m_Layer: 6
   m_Name: ArcherTower
   m_TagString: Defender
@@ -317,6 +318,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1215792289523633601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5140022167974113465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0405e627a5a935f4191f43733173b866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 2420877349807280845}
+  upgrade1: {fileID: 3858458240414116628}
+  upgrade2: {fileID: 4672028150541927978}
 --- !u!1001 &23944289408336260
 PrefabInstance:
   m_ObjectHideFlags: 0

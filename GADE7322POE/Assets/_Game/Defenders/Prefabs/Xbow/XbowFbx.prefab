@@ -339,7 +339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3678044759539706542
 Transform:
   m_ObjectHideFlags: 0
@@ -8907,7 +8907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5338058009811658938
 Transform:
   m_ObjectHideFlags: 0
@@ -10409,6 +10409,7 @@ GameObject:
   - component: {fileID: 2866176338076571539}
   - component: {fileID: 2874170956425389409}
   - component: {fileID: 387025585768075211}
+  - component: {fileID: 323659348693554576}
   m_Layer: 6
   m_Name: XbowFbx
   m_TagString: Defender
@@ -10510,6 +10511,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &323659348693554576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5448231919629619856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0405e627a5a935f4191f43733173b866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 387025585768075211}
+  upgrade1: {fileID: 4710562723257184768}
+  upgrade2: {fileID: 133971394933236522}
 --- !u!1 &5468208657607244762
 GameObject:
   m_ObjectHideFlags: 0

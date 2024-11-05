@@ -37,6 +37,13 @@ public class Health : MonoBehaviour, IDamageable //Handle all game health
         }
     }
 
+    public void ResetHealth()
+    {
+        _currentHealth = MaxHealth;
+        onDamaged?.Invoke(GetHealthFillAmount());
+        onHealthDamaged?.Invoke((float)_currentHealth / ((float)MaxHealth/ 100f), damageType);
+    }
+
     public void Damage(int amount) //Handle entity damage
     {
         _currentHealth -= amount;

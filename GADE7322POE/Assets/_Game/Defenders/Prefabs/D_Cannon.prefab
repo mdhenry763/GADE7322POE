@@ -564,6 +564,7 @@ GameObject:
   - component: {fileID: 7338939002329855824}
   - component: {fileID: 2530126509607002712}
   - component: {fileID: 3434494268073452929}
+  - component: {fileID: 8403157726816487771}
   m_Layer: 6
   m_Name: D_Cannon
   m_TagString: Defender
@@ -645,6 +646,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8403157726816487771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4200502001127775512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0405e627a5a935f4191f43733173b866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 3434494268073452929}
+  upgrade1: {fileID: 5012033025279454204}
+  upgrade2: {fileID: 6551715512015644523}
 --- !u!1 &4591231266788690306
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +872,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1776365417544403313}
   m_Layer: 0
-  m_Name: Upagrade1
+  m_Name: Upgrade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -890,7 +906,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3924631307928082979}
   m_Layer: 0
-  m_Name: Upagrade2
+  m_Name: Upgrade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
