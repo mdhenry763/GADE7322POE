@@ -45,7 +45,7 @@ Material:
     - _Color_Speed: 2
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Wave_Speed: -2.3
+    - _Wave_Speed: 0
     - _Wave_Strength: 1.5
     m_Colors:
     - _Base_Color: {r: 0.6981132, g: 0.5654496, b: 0.2199715, a: 1}
