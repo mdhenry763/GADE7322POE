@@ -62,21 +62,9 @@ public class DefenderHandler : MonoBehaviour
     /// <param name="obj"></param>
     private void MouseClick(InputAction.CallbackContext obj)
     {
-        //
         Ray mousePos = _mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(mousePos, out var defenderHit, 100f, defenderLayer))
-        {
-            Debug.Log($"{defenderHit.transform.name} has been hit");
-            if (defenderHit.transform.TryGetComponent<UpgradeDefender>( out var upgrade))
-            {
-                Debug.Log("Upgrade Defender");
-                upgrade.Upgrade();
-            }
-
-            _upgrading = false;
-            
-        }
+        UpgradeDefender(mousePos);
 
         if(!canPlace) return;
         if (Physics.Raycast(mousePos, out var hit, 100f))
@@ -93,6 +81,24 @@ public class DefenderHandler : MonoBehaviour
             canPlace = false;
             onTowerPlaced?.Invoke();
         }
+    }
+
+    private void UpgradeDefender(Ray mousePos)
+    {
+        if (!_upgrading) return;
+
+        if (!Physics.Raycast(mousePos, out var defenderHit, 100f, defenderLayer)) return;
+        
+        Debug.Log($"{defenderHit.transform.name} has been hit");
+        if (defenderHit.transform.TryGetComponent<UpgradeDefender>( out var upgrade))
+        {
+            Debug.Log("Upgrade Defender");
+            upgrade.Upgrade();
+            currencyData.UpdateCurrency(-100);
+            onTowerPlaced?.Invoke();
+        }
+
+        _upgrading = false;
     }
 
     private void SpawnDefender(Vector3 position)

@@ -128,11 +128,19 @@ public class CardUIHandler : UtkBase
     private void HandleUpgradeRequest()
     {
         Debug.Log("Upgrade selected");
-        ShowPlaceText("Click on a defender to upgrade!");
-        //TODO:
-        //Check if player has enough money to upgrade
-        //Upgrade using defender handler
-        OnUpgradeCalled?.Invoke();
+
+        if (currencyData.Currency >= 100)
+        {
+            ShowPlaceText("Click on a defender to upgrade!");
+            OnUpgradeCalled?.Invoke();
+        }
+        else
+        {
+            ShowPlaceText("You do not have enough gold!");
+            StartCoroutine(HideText());
+        }
+        
+        
     }
 
     private void HandleCannonPicked()
