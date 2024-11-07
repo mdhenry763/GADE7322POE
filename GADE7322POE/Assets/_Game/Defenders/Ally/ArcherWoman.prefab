@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 7853058551602032768}
   - component: {fileID: 6373287288888875690}
   m_Layer: 0
-  m_Name: Erika Archer With Bow Arrow
+  m_Name: ArcherWoman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

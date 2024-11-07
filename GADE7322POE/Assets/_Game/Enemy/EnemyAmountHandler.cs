@@ -11,10 +11,40 @@ public static class EnemyAmountHandler
         _enemies.Add(enemy);
     }
 
-    public static void GetTypeToSpawn()
+    public static AllyType GetTypeToSpawn()
     {
         //TODO:
         //Determine which ally to spawn and then return that ally
+
+        var numGoblins = _enemies.Count(enemy => enemy.EnemyType == EEnemy.Goblin);
+        var numDragons = _enemies.Count(enemy => enemy.EnemyType == EEnemy.Dragon);
+        var numGolems = _enemies.Count(enemy => enemy.EnemyType == EEnemy.Golem);
+
+        var total = numGolems + numDragons + numGoblins;
+
+        var percentageGoblin = numGoblins / total;
+        var percentageDragons = numDragons / total;
+        var percentageGolems = numGolems / total;
+
+        if (numGoblins > 5 && percentageGoblin > 0.5f)
+        {
+            return AllyType.Bomber;
+        }
+
+        if (numDragons > 4 && percentageDragons > 0.3f)
+        {
+            return AllyType.Archer;
+        }
+
+        if (numGolems > 2 && percentageGoblin > 0.6f)
+        {
+            return AllyType.Knight;
+        }
+        
+        
+        //Default to Archer
+        return AllyType.Archer;
+
     }
 
     public static void RemoveEnemy(GameObject enemy)

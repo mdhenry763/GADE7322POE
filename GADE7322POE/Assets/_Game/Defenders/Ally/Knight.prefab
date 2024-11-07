@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 5560747643645330657}
   - component: {fileID: 8476393735290461794}
   m_Layer: 0
-  m_Name: Great Sword Run
+  m_Name: Knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

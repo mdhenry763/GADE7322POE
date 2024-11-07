@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 4721625537250841735}
   - component: {fileID: 5770983524791403353}
   m_Layer: 0
-  m_Name: exo_red
+  m_Name: Bomber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
