@@ -90,6 +90,9 @@ public class EnemySpawner : MonoBehaviour
                     
                     //Spawn enemy on random path
                     var enemyObj = Instantiate(goblinPrefab, this.transform);
+                    //Add enemies to Enemy Amount Handler
+                    EnemyAmountHandler.AddEnemy(new EnemyData{EnemyType = enemyType, Prefab = enemyObj});
+                    
                     var enemyController = enemyObj.GetComponent<GeneralEnemyController>();
                     //Initialise enemy
                     enemyController.InitEnemy(path, offset, goblinSpeed);

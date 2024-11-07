@@ -75,6 +75,12 @@ public class Health : MonoBehaviour, IDamageable //Handle all game health
         {
             DefendersController.RemoveDefender(gameObject);
         }
+
+        if (damageType == DamageType.Goblin)
+        {
+            EnemyAmountHandler.RemoveEnemy(parentObject);
+        }
+        
         Destroy(parentObject);
     }
     
