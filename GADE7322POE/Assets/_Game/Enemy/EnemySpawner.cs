@@ -60,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
      {
           //Spawn Trails and GetNavMesh for when enemy off path
           splineContainer.GetComponent<SplineInstantiate>();
-          surface.BuildNavMesh();
+          //surface.BuildNavMesh();
 
           _isSpawning = true;
           StartCoroutine(SpawnEnemiesOnInterval(paths)); //Spawn interval
