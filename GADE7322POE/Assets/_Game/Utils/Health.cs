@@ -22,6 +22,7 @@ public class Health : MonoBehaviour, IDamageable //Handle all game health
     [Space]
     public UnityEvent<float> onDamaged;
     public static event Action<float, DamageType> onHealthDamaged;
+    public static event Action onTowerUpgraded;
     public static event Action onGameEnd;
     public static event Action OnEnemyDied;
 
@@ -37,11 +38,22 @@ public class Health : MonoBehaviour, IDamageable //Handle all game health
         }
     }
 
-    public void ResetHealth()
+    private void ResetHealth()
     {
         _currentHealth = MaxHealth;
         onDamaged?.Invoke(GetHealthFillAmount());
         onHealthDamaged?.Invoke((float)_currentHealth / ((float)MaxHealth/ 100f), damageType);
+    }
+
+    public void IncreaseHealth(int amount = 5)
+    {
+        MaxHealth += amount;
+        ResetHealth();
+        
+        if (damageType == DamageType.Tower)
+        {
+            onTowerUpgraded?.Invoke();
+        }
     }
 
     public void Damage(int amount) //Handle entity damage

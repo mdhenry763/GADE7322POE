@@ -20,6 +20,19 @@ public class CurrencyManager : MonoBehaviour
         currencyCoroutine = StartCoroutine(SetPlayerCurrency());
     }
 
+    private void OnEnable()
+    {
+        EnemyWaveController.OnRoundIncreased += HandleRoundIncrease;
+    }
+
+    void HandleRoundIncrease(int round)
+    {
+        if (round == 3)
+        {
+            currencyIncreaseTimer--;
+        }
+    }
+
     /// <summary>
     /// Handle Updating currency at interval
     /// </summary>

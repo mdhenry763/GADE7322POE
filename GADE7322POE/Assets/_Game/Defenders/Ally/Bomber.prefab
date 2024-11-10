@@ -756,6 +756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4721625537250841735}
   - component: {fileID: 5770983524791403353}
+  - component: {fileID: 1749485674519829348}
   m_Layer: 0
   m_Name: Bomber
   m_TagString: Untagged
@@ -808,6 +809,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1749485674519829348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393222283105227975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9a99db216b16e048ab4457f17da1545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDistance: 1
+  attackRadius: 10
+  bombEffect: {fileID: 1337198075554910, guid: 5f837159b5c56ca4084501db5481cde0, type: 3}
+  animator: {fileID: 5770983524791403353}
 --- !u!1 &1456024784178385524
 GameObject:
   m_ObjectHideFlags: 0

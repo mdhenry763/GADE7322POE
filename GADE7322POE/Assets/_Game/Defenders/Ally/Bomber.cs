@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Bomber : MonoBehaviour
 {
     public float attackDistance = 1f;
-    public ParticleSystem bombEffect;
+    public float attackRadius = 10f;
+    public GameObject bombEffect;
     
     public Animator animator;
     
@@ -19,7 +21,6 @@ public class Bomber : MonoBehaviour
     {
         _isAttacking = false;
         animator = GetComponent<Animator>();
-        DefendersController.AddDefender(gameObject);
     }
 
     private void Update()
@@ -36,7 +37,9 @@ public class Bomber : MonoBehaviour
             if (_isAttacking) return;
             
             Debug.Log("Attacking");
-            bombEffect.Play();
+            Instantiate(bombEffect, transform.position + new Vector3(0, 1, 0), quaternion.identity);
+            EnemyAmountHandler.BlowUpNearestEnemies(attackRadius, transform.position);
+            Destroy(gameObject);
             _isAttacking = true;
         }
         else

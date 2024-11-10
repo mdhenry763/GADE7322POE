@@ -4603,7 +4603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startCurrency: 50
   currencyIncrease: 10
-  currencyIncreaseTimer: 4
+  currencyIncreaseTimer: 3
   currencyData: {fileID: 11400000, guid: 70464dac4661728408832f66b6bfd05a, type: 2}
 --- !u!4 &1854211434
 Transform:
@@ -5159,7 +5159,7 @@ MonoBehaviour:
   dragonChance: 0
   golemChance: 0
   waveThreshold: 5
-  deathThreshold: 15
+  deathThreshold: 20
 --- !u!1001 &4252194497583457575
 PrefabInstance:
   m_ObjectHideFlags: 0

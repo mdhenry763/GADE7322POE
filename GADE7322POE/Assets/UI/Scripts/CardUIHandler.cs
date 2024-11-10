@@ -116,7 +116,7 @@ public class CardUIHandler : UtkBase
         OnSpecialCalled?.Invoke();
         ShowPlaceText("Click on area to place special");
         StartCoroutine(HideText());
-        //_mSpecialBtn.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
+        _mSpecialBtn.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
     }
 
     IEnumerator RoundTextShow()

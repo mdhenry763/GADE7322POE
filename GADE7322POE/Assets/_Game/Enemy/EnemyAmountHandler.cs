@@ -19,11 +19,22 @@ public static class EnemyAmountHandler
         ally.rotation = Quaternion.LookRotation(direction);
     }
 
-    public static List<GameObject> GetAllNearestEnemies(float radius)
+    public static void BlowUpNearestEnemies(float radius, Vector3 position)
     {
-        List<GameObject> nearbyEnemies = new List<GameObject>();
+        foreach (var enemyData in _enemies)
+        {
+            var enemy = enemyData.Prefab;
 
-        return nearbyEnemies;
+            var distance = Vector3.Distance(position, enemy.transform.position);
+
+            if (!(distance <= radius)) continue;
+            if (enemy.TryGetComponent<IDamageable>(out IDamageable damageable))
+            {
+                damageable.Damage(1000);
+            }
+        }
+
+        
     }
 
     public static void ChangeAnim(Animator anim, int hashCode)
@@ -58,14 +69,13 @@ public static class EnemyAmountHandler
             return AllyType.Archer;
         }
 
-        if (numGolems > 2 && percentageGoblin > 0.6f)
+        if (numGolems >= 2)
         {
             return AllyType.Knight;
         }
         
-        
         //Default to Archer
-        return AllyType.Knight;
+        return AllyType.Archer;
 
     }
 

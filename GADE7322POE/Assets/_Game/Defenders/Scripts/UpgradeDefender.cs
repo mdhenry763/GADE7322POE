@@ -22,7 +22,7 @@ public class UpgradeDefender : MonoBehaviour
 
     private void UpgradeHealth()
     {
-        health.ResetHealth();
+        health.IncreaseHealth();
     }
 
     private void UpgradeAttack()

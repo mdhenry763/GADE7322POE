@@ -26,6 +26,18 @@ public class TowerHealth : MonoBehaviour
     private void OnEnable()
     {
         Health.onHealthDamaged += HandleTowerHealth;
+        Health.onTowerUpgraded += ReduceVignette;
+    }
+
+    private void OnDisable()
+    {
+        Health.onHealthDamaged -= HandleTowerHealth;
+        Health.onTowerUpgraded -= ReduceVignette;
+    }
+
+    private void ReduceVignette()
+    {
+        _vignette.intensity.value = initialIntensity;
     }
 
     private void HandleTowerHealth(float arg1, DamageType arg2)
