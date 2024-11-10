@@ -29,6 +29,7 @@ public class CardUIHandler : UtkBase
     private Button _mArcherBtn;
     private Button _mCrossbowBtn;
     private Button _mUpgradeBtn;
+    private Button _mSpecialBtn;
 
     private Coroutine roundTextShow;
     
@@ -39,6 +40,7 @@ public class CardUIHandler : UtkBase
 
     public static event Action<DefenderCard> OnCardPicked;
     public static event Action OnUpgradeCalled;
+    public static event Action OnSpecialCalled;
 
 
     protected override void Start()
@@ -63,6 +65,7 @@ public class CardUIHandler : UtkBase
         _mArcherBtn = rootElement.Q<Button>("ArcherBtn");
         _mCrossbowBtn = rootElement.Q<Button>("CrossbowBtn");
         _mUpgradeBtn = rootElement.Q<Button>("UpgradeBtn");
+        _mSpecialBtn = rootElement.Q<Button>("SpecialBtn");
         
         _mPauseBtn = rootElement.Q<Button>("PauseBtn");
         
@@ -73,6 +76,8 @@ public class CardUIHandler : UtkBase
         _mArcherBtn.clicked += HandleArcherPicked;
         _mCrossbowBtn.clicked += HandleCrossbowPicked;
         _mUpgradeBtn.clicked += HandleUpgradeRequest;
+
+        _mSpecialBtn.clicked += HandleSpecial;
         
         _mPlaceLbl = rootElement.Q<Label>("PlaceLabel");
         
@@ -96,7 +101,6 @@ public class CardUIHandler : UtkBase
 
     private void HandleWaveIncrease(int wave)
     {
-        
         _mNewLbl.text = "New wave";
         _mRoundText.RemoveFromClassList("coin_hide");
         _mWaveLbl.text = $"Wave: {wave}/5";
@@ -105,6 +109,14 @@ public class CardUIHandler : UtkBase
             StopCoroutine(roundTextShow);
         }
         roundTextShow = StartCoroutine(RoundTextShow());
+    }
+
+    private void HandleSpecial()
+    {
+        OnSpecialCalled?.Invoke();
+        ShowPlaceText("Click on area to place special");
+        StartCoroutine(HideText());
+        //_mSpecialBtn.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
     }
 
     IEnumerator RoundTextShow()
@@ -123,6 +135,7 @@ public class CardUIHandler : UtkBase
             StopCoroutine(roundTextShow);
         }
         roundTextShow = StartCoroutine(RoundTextShow());
+        _mSpecialBtn.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
     }
 
     private void HandleUpgradeRequest()

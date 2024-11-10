@@ -519,6 +519,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5560747643645330657}
   - component: {fileID: 8476393735290461794}
+  - component: {fileID: -8519984979110257923}
+  - component: {fileID: 3870098287874573810}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -565,6 +567,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-8519984979110257923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565074401423409430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832f8db0ab2aefb489b325bad9ff4b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  attackDistance: 1
+  animator: {fileID: 8476393735290461794}
+--- !u!114 &3870098287874573810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565074401423409430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef3c84980855374089a78a5f581a6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 50
+  damagePS: {fileID: 0}
+  damageType: 2
+  parentObject: {fileID: 2565074401423409430}
+  animator: {fileID: 8476393735290461794}
+  deathAnim: Death
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2603073691109455364
 GameObject:
   m_ObjectHideFlags: 0

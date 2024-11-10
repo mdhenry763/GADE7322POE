@@ -169,6 +169,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7853058551602032768}
   - component: {fileID: 6373287288888875690}
+  - component: {fileID: 5413655581503495890}
+  - component: {fileID: 2064113503707692938}
   m_Layer: 0
   m_Name: ArcherWoman
   m_TagString: Untagged
@@ -211,7 +213,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 23858ddaa79551b489047b90db4493bc, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -219,6 +221,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5413655581503495890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773853123021727295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf6e103c6d9f984f9c3e794c5261bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDistance: 5
+  arrow: {fileID: 1940186658668467378, guid: 30f3228ec99c41346a5e17c7a4609941, type: 3}
+  animator: {fileID: 6373287288888875690}
+--- !u!114 &2064113503707692938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773853123021727295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef3c84980855374089a78a5f581a6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 25
+  damagePS: {fileID: 0}
+  damageType: 2
+  parentObject: {fileID: 773853123021727295}
+  animator: {fileID: 0}
+  deathAnim: 
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &781221762769062590
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,9 @@ public class DefenderHandler : MonoBehaviour
 
     private bool canPlace;
     private bool _upgrading;
+    private bool _special;
 
+    public UnityEvent<Vector3> onSpawnSpecial;
     public UnityEvent onTowerPlaced;
     private DefenderCard _card;
 
@@ -32,8 +34,14 @@ public class DefenderHandler : MonoBehaviour
         _controls.Enable();
         
         _controls.Player.Fire.performed += MouseClick;
+        CardUIHandler.OnSpecialCalled += HandleSpecial;
         CardUIHandler.OnCardPicked += HandleCardPicked;
         CardUIHandler.OnUpgradeCalled += HandleUpgradeCalled;
+    }
+
+    private void HandleSpecial()
+    {
+        _special = true;
     }
 
     private void HandleCardPicked(DefenderCard card)
@@ -66,7 +74,7 @@ public class DefenderHandler : MonoBehaviour
 
         UpgradeDefender(mousePos);
 
-        if(!canPlace) return;
+        
         if (Physics.Raycast(mousePos, out var hit, 100f))
         {
             Debug.Log(hit.transform.tag + " || " + hit.transform.position);
@@ -75,6 +83,16 @@ public class DefenderHandler : MonoBehaviour
             
             //Do something
             Debug.Log($"Trying to place on {hit.transform.tag}");
+            
+            if (_special)
+            {
+                Debug.Log("Place Ally");
+                onSpawnSpecial?.Invoke(hit.point);
+                _special = false;
+                return;
+            }
+            
+            if(!canPlace) return;
             currencyData.UpdateCurrency(-_card.Cost);
             SoundManager.Instance.PlaySound(SoundType.CannonPlaced);
             SpawnDefender(hit.point);

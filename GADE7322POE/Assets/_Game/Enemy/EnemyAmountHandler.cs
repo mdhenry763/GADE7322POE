@@ -11,6 +11,26 @@ public static class EnemyAmountHandler
         _enemies.Add(enemy);
     }
 
+    public static void ChaseEnemy(Transform ally, float speed)
+    {
+        var enemyPos = GetClosestEnemy(ally).transform.position;
+        ally.position = Vector3.Lerp(ally.position, enemyPos, Time.deltaTime * speed * 1.1f);
+        var direction = enemyPos - ally.position;
+        ally.rotation = Quaternion.LookRotation(direction);
+    }
+
+    public static List<GameObject> GetAllNearestEnemies(float radius)
+    {
+        List<GameObject> nearbyEnemies = new List<GameObject>();
+
+        return nearbyEnemies;
+    }
+
+    public static void ChangeAnim(Animator anim, int hashCode)
+    {
+        anim.CrossFade(hashCode, 0.1f);
+    }
+
     public static AllyType GetTypeToSpawn()
     {
         //TODO:
@@ -25,8 +45,10 @@ public static class EnemyAmountHandler
         var percentageGoblin = numGoblins / total;
         var percentageDragons = numDragons / total;
         var percentageGolems = numGolems / total;
+        
+        Debug.Log($"Num Goblins: {numGoblins}, percentage Goblins: {percentageGoblin}");
 
-        if (numGoblins > 5 && percentageGoblin > 0.5f)
+        if (numGoblins >= 5 && percentageGoblin > 0.5f)
         {
             return AllyType.Bomber;
         }
@@ -43,7 +65,7 @@ public static class EnemyAmountHandler
         
         
         //Default to Archer
-        return AllyType.Archer;
+        return AllyType.Knight;
 
     }
 

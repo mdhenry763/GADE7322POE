@@ -11,24 +11,9 @@ public class AllySpawnManager : MonoBehaviour
     public GameObject KnightPrefab;
 
     private bool _mCanSpawnAlly;
-    
-    private void OnEnable()
-    {
-        //TODO: Callback for Ally spawn UI event
-        _mCanSpawnAlly = true;
-    }
 
-    private void OnDisable()
+    public void SpawnAlly(Vector3 position) //Method for responding to event
     {
-        //Unsubscribe from UI event
-    }
-
-    private void SpawnAlly()
-    {
-        if(!_mCanSpawnAlly) return;
-        //Add Mouse position check for spawning player
-        
-        //Method for responding to event
         //Each Ally will have their own script
         var type = EnemyAmountHandler.GetTypeToSpawn();
 
@@ -40,6 +25,6 @@ public class AllySpawnManager : MonoBehaviour
             _ => ArcherPrefab
         };
 
-        var obj = Instantiate(spawnedAlly, transform.position, Quaternion.identity);
+        var obj = Instantiate(spawnedAlly, position, Quaternion.identity);
     }
 }
